@@ -33,7 +33,7 @@ array_walk($demo_full, function(&$a) use ($demo_full) {
 array_shift($demo_full); # remove column header
 
 $myfile = fopen("data/demographic_data.csv", "a") or die("Unable to open file!");
-fwrite($myfile,'"'.$user.'","'.$age.'","'.$gender.'","'.$place_of_birth.'","'.$place_of_residence.'","'.$l2.'","'.$l3.'","'.$l4.'","'.$l5.'","'.$l6."\n");
+fwrite($myfile,'"'.$user.'","'.$age.'","'.$gender.'","'.$place_of_birth.'","'.$place_of_residence.'","'.$l2.'","'.$l3.'","'.$l4.'","'.$l5.'","'.$l6.'"'."\n");
 fclose($myfile);
 
 header('Location: /recorder.php');

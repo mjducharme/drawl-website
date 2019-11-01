@@ -103,9 +103,9 @@ function selfInvoker()
         echo 'Invalid file extension: '.$extension;
         return;
     }
-    
+
     if (!move_uploaded_file($tempName, $filePath)) {
-        error_log('Problem saving file: '.$tempName);
+        error_log('Problem saving file: '.$tempName.','.$filePath);
         echo 'Problem saving file: '.$tempName;
         return;
     }
