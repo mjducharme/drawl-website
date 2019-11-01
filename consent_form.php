@@ -1,12 +1,16 @@
 <?php
 	include "language.php";
-	//this is html//
+	$consent_text = file_get_contents('language/eng/consent.txt');
 ?>
 
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/bootstrap/js/jquery.min.js"></script>
 <style>
+h1 {margin: auto;}
+
 .consent_text {
   /* Just to center the text on the page */
   margin: auto;
@@ -16,37 +20,18 @@
   padding: 1em;
   border: 1px solid #CCC;
   border-radius: 1em;
+  overflow:overlay;
 }
 
-object{
-  width: 100%;
-  height: 100%;
-}
-
-form {
-  /* Just to center the form on the page */
-  margin: 0 auto;
-  width: 90%;
-  /* To see the outline of the form */
-  padding: 1em;
-  border: 1px solid #CCC;
-  border-radius: 1em;
-}
+form {display: flex; margin: auto; width: 80%; height: 100%; flex-direction: row;}
 
 form div + div {
   margin-top: 1em;
 }
 
-.participation{
-  width: 45%;
-}
+.participation {flex: 1 1; border: none; margin: 0; padding: 10px; overflow: auto; }
 
-.publication{
-  width: 45%;
-  position: absolute;
-  top: 440px;
-  left: 50%;
-}
+.publication {display:flex; flex-direction: column; width: 50%; padding: 10px; overflow: auto; }
 
 
 label {
@@ -87,23 +72,22 @@ textarea {
   padding-left: 90px; /* same size as the label elements */
 }
 
-.submit{
-  /* centering */
-  position: relative;
-  left:45%;
-}    
+.submit{ padding-left:80%; margin: auto; }
 </style>    
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Consent form</title>
-        <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <div class="consent_text"><object data="language/en/consent.txt"></object></div>
+    	<!--<?php echo($_SESSION['lang']) ?>-->
+    	<nav class="navbar navbar-primary bg-primary">
+  			<span class="navbar-brand mb-0 h1">Consent Form: Studying sound change in small cross-linguistic corpora</span>
+		</nav>
+        <div class="consent_text" data-spy="scroll"><?php echo $consent_text?></div>
     </body>
     <form action="/consent.php" method="post">
-        <div class="participation"><h4>1. Consent to participation</h4>
+        <div class="participation"><h4>1. Consent to participate</h4>
 <p>If you agree to participate in the study, type your name and email address in the boxes below and tick the “I consent to participate” box. Participation includes using your anonymized speech recordings in our database, sharing it with other researchers through a closed registration-only website, and publishing your anonymous survey results.</p>
         <div>
             <label for="name">Name:</label>
@@ -117,6 +101,9 @@ textarea {
             <input type="checkbox" name="consent_box" onchange="document.getElementById('c_button').disabled = !this.checked" required>
             I consent to participate.
         </div>
+        <div class="submit">
+            <button type="submit" id="c_button" disabled="true">Submit</button>
+        </div>
         </div>
         <div class="publication">
         <h4>2. Consent to publish excerpts from recordings</h4>
@@ -127,11 +114,8 @@ consent to these uses of data, please tick the box below. If you do not consent 
 your data, please do not tick the box.</p>
         <div class="checkbox">
         <input type="checkbox" name="share_box">
-        I consent to excerpts of my recorings being published. (Optional)
+        I consent to excerpts of my recordings being published. (Optional)
         </div>
-        </div>
-        <div class="submit">
-            <button type="submit" id="c_button" disabled="true">Submit</button>
         </div>
     </form>
 </html>
