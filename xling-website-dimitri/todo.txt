@@ -1,0 +1,22 @@
+1) contact someone at IT services
+2a) set up Apache server on MacBook Pro
+2b) as part of this you'll probably need an Ethernet cable (https://njmac.blogspot.com/2012/04/setting-up-mac-server.html)
+3) create basic test website
+4) check accessibility via local network
+5) set up static IP address?
+6) check whether domain name to be registered will work with Let's Encrypt
+7) register domain name (dynDNS if no static IP address is available)
+8) get HTTPS certificate via Let's Encrypt
+9) add bells & whistles
+
+see also: https://discussions.apple.com/docs/DOC-12034
+
+add to UBC firewall to open up the ports for the web server
+The PHP maximum upload limit needs to be increased
+
+MAC address & IP address
+
+Gary (needn't mention by name) - email arts.helpdesk dhcp reserve; .linguistics.ubc.ca
+
+
+Fix the [$lang] in consent_form.php
