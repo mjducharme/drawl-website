@@ -29,6 +29,7 @@ if (sizeof($consent_full) == 0) {
     $curr_code = 1;
 } else {
     $last_code = (int) filter_var($consent_full[sizeof($consent_full)-1]["code"], FILTER_SANITIZE_NUMBER_INT);
+    //$last_code = (int) filter_var(array_count_values(array_column($consent_full, 'code'))[$language], FILTER_SANITIZE_NUMBER_INT);
     $curr_code = $last_code + 1;    
 }
 fwrite($myfile, '"'.$name.'","'.$email.'","'.$language.$curr_code.'","'.$public.'"'."\n");

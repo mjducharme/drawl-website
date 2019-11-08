@@ -1,7 +1,7 @@
 <?php
 	#include "language.php";
 	$allowed = array('eng','fra');
-	if (!isset($lang) && !($_GET["lang"]) && !in_array(($_GET["lang"]), $allowed)) {
+	if (!isset($lang) && !($_GET["lang"]) || !in_array(($_GET["lang"]), $allowed)) {
 		$lang = 'eng';
 	}
 	else {
@@ -115,7 +115,7 @@ textarea {
         </div>
         <div class="publication">
         <h4><?php echo($langar['ConsentPublication'])?></h4>
-<p><?php echo($langar['ConsentPublicationText'])?></p>
+<p><?php echo($langar['ConsentPublicationText1'].'['.$lang.'-1], ['.$lang.'-2]'.$langar['ConsentPublicationText2']) ?></p>
         <div class="checkbox">
         <input type="checkbox" name="share_box">
         <?php echo($langar['ConsentPublicationConsent'])?>
