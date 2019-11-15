@@ -114,7 +114,6 @@ DEALINGS IN THE SOFTWARE.
                             callback('upload-ended');
                             return;
                         }
-
                         document.querySelector('.header').parentNode.style = 'text-align: left; color: red; padding: 5px 10px;';
                         document.querySelector('.header').parentNode.innerHTML = request.responseText;
                     }
@@ -129,7 +128,7 @@ DEALINGS IN THE SOFTWARE.
                 };
 
                 request.upload.onload = function() {
-                    callback('File successfully uploaded');
+                    callback('\u2713');
                 };
 
                 request.upload.onerror = function(error) {
@@ -169,17 +168,17 @@ DEALINGS IN THE SOFTWARE.
         callback('ended');
 
     });
-    // var request = new XMLHttpRequest();
+    //var request = new XMLHttpRequest();
 
-    // request.open('POST', '/save.php');
-    // request.send(formData);
+    //request.open('POST', '/save.php');
+    //request.send(formData);
     console.log('PHP post submitted');
     var savebutton = document.getElementById("save");
     savebutton.style.opacity="0.25";
-    // var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    // var link = document.getElementById("save");
-    // link.href = url;
-    // link.download = filename || 'output.wav';
+    var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    var link = document.getElementById("save");
+    //link.href = url;
+    //link.download = filename || 'output.wav';
   }
 
   window.Recorder = Recorder;

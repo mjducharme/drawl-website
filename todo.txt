@@ -17,3 +17,6 @@ The PHP maximum upload limit needs to be increased
 MAC address & IP address
 
 Gary (needn't mention by name) - email arts.helpdesk dhcp reserve; .linguistics.ubc.ca
+
+
+Fix the [$lang] in consent_form.php

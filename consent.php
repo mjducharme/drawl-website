@@ -10,12 +10,12 @@ function test_input($data) {
 
 // define variables and set to empty values
 $name = $email = $code = $public = "";
-$language = "eng";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $name = test_input($_POST["user_name"]);
   $email = test_input($_POST["user_email"]);
   $public = test_input($_POST["share_box"]);
+  $language = $_GET["lang"];
 }
 
 $consent_full = array_map('str_getcsv', file("data/consent.csv"));
@@ -29,6 +29,7 @@ if (sizeof($consent_full) == 0) {
     $curr_code = 1;
 } else {
     $last_code = (int) filter_var($consent_full[sizeof($consent_full)-1]["code"], FILTER_SANITIZE_NUMBER_INT);
+    //$last_code = (int) filter_var(array_count_values(array_column($consent_full, 'code'))[$language], FILTER_SANITIZE_NUMBER_INT);
     $curr_code = $last_code + 1;    
 }
 fwrite($myfile, '"'.$name.'","'.$email.'","'.$language.$curr_code.'","'.$public.'"'."\n");
@@ -36,5 +37,6 @@ fclose($myfile);
 
 session_start();
 $_SESSION["user_id"] = $language.$curr_code;
-header('Location: /demographic_questionnaire.html');
+$_SESSION['lang'] = $language;
+header('Location: /demographic_questionnaire.php');
 ?>

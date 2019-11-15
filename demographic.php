@@ -12,7 +12,7 @@ session_start();
 $user = test_input($_SESSION["user_id"]);
 print("hi ".$user);
 $age = $gender = $place_of_birth = $place_of_residence = $l2 = $l3 = $l4 = $l5 = $l6 = "";
-$language = "eng";
+//$language = "eng";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $age = test_input($_POST["user_age"]);

@@ -1,3 +1,14 @@
+<?php
+	$allowed = array('eng','fra');
+	if (!isset($lang) && !($_GET["lang"]) && !in_array(($_GET["lang"]), $allowed)) {
+		$lang = 'eng';
+	}
+	else {
+		$lang = ($_GET["lang"]);
+	}
+	require_once "language/".$lang."/main.php";
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,10 +31,10 @@
 </head>
 <body>
 	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1">Xling</span>
+        <span class="navbar-brand mb-0 h1"><?php echo($langar['IndexTitle'])?></span>
     </nav>
-    <h4><a class=button href='/welcome.php?lang=eng'>English</a></h4>
-    <h4><a class=button href='/welcome.php?lang=fra'>Francais</a></h4>
+	<h4><?php echo($langar['IndexText'])?></h4><h4>
+	<a class=button href= <?php echo("consent_form.php?lang=".$lang) ;?> ><?php echo($langar['IndexLink'])?></a></h4>
     
 </body>
 </html>

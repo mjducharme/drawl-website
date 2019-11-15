@@ -12,7 +12,8 @@
         session_start();
         $user_id = $_SESSION["user_id"];
         echo htmlspecialchars($user_id);
-        $reading_passage = file_get_contents('language/eng/reading_passage.txt');
+        $reading_passage = file_get_contents('language/'.$_SESSION["lang"].'/reading_passage.txt');
+        require_once "language/".$_SESSION['lang']."/main.php";
     ?>
     </div>
     <script>
@@ -78,7 +79,6 @@
 .column-container {display: flex; width: 100%; height: 100%; flex-direction: row;}
 .second-column { display:flex; flex-direction: column; width: 30%; min-width: 300px; overflow: auto; }
 .first-column { flex: 1 1; border: none; margin: 0; padding: 0; overflow: auto; -webkit-overflow-scrolling:touch; }
-.first-column iframe {width: 100%; height: 100%; border: none; margin: 0; padding: 0; display: block;}
 .container { overflow:overlay; max-height: 85%; width:100%;}
 
 	// #save, #save img { height: 10vh; }
@@ -86,7 +86,7 @@
 	#save { opacity: 0.25;}
 	#save[download] { opacity: 1;}
 	#viz {
-		height: 85%;
+		height: 55%;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
@@ -125,17 +125,17 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Instructions</a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><?php echo($langar['RecorderInstructionsTitle'])?></a>
         </h4>
       </div>
       <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">You can see the recording pane on the right-hand side. The top Recording window shows the level of the incoming sound. The bottom Recording window will show the recorded waveform when it is complete. Underneath the two windows are a Playback Control, a Microphone icon, and a Submit icon. To record the story, click on the Microphone icon (which will glow red), read the passage aloud, and then click on the Microphone icon again to stop recording. The lower window will then show your recording as a waveform. Clicking on the Play button in the Playback Control will allow you to hear your recording. If you are satisfied with it, you can click on the Submit button and your recording will be sent to the University of British Columbia. Once you have submitted your recording, you canclick on Close Recording Pane to make the Recording Pane go away.</div>
+        <div class="panel-body"> <?php echo($langar['RecorderInstructions'])?></div>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Reading Sample: The Benefits of Hiking</a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><?php echo($langar['RecorderReadingTitle'])?></a>
         </h4>
       </div>
       <div id="collapse2" class="panel-collapse collapse">
@@ -145,25 +145,11 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Spontaneous Speech Prompts</a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><?php echo($langar['RecorderSpontaneous'])?></a>
         </h4>
       </div>
       <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body"><p>You can use the following prompt if you wish, or talk about something else if you’d like. You are free to decide what you discuss, but we would like to ask you to avoid topics that may be sensitive or controversial from a religious / political / racial / sexual point of view. We would also like you to avoid disclosing personally identifying information such as your name, address, workplace, etc.
-    </p>
-        <ul>
-        <li>Tell us about your hobbies</li>
-        <li>What was your childhood dream?</li>
-        <li>What is your morning/daily routine?</li>
-        <li>Tell us about a happy event of your life.</li>
-        <li>What do you think is important for achieving happiness?</li>
-        <li>Describe your typical weekend.</li>
-        <li>What’s your job? How does it work?</li>
-        <li>What’s your life’s greatest achievement? How has this affected your life?</li>
-        <li>What is the most useful piece of advice you have been given?</li>
-        <li>Tell us about your favourite book or movie.</li>
-        <li>Did you like school? What were your best/worst subjects?</li>
-    </ul></div>
+        <div class="panel-body"><?php echo($langar['RecorderList'])?></div>
       </div>
     </div>
   </div> 
@@ -178,11 +164,10 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 	</div>
 	<div id="controls">
 		<div id="buttons">
-		<div id="record-div"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="images/mic128.png" width="70" height="70"><br/><div id="rectext">Start/Stop Recording</div></a></div>
-		<div id="save-div"><a id="save" href="#" onclick="startSubmit(this);"><img src="images/save.svg" width="70" height="70"><br/>Submit Recording</a></div>
-		<div id="exit-div"><a href="#" onclick="window.location = document.getElementById('iframe').src;"><img id="exit" width="70" height="70" src="images/exit.png"><br/>Close Recorder</a></div>
+		<div id="record-div"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="images/mic128.png" width="70" height="70"><br/><div id="rectext"><?php echo($langar['RecorderRec'])?></div></a></div>
+		<div id="save-div"><a id="save" href="#" onclick="startSubmit(this);"><img src="images/save.svg" width="70" height="70"><br/><?php echo($langar['RecorderSave'])?></a></div>
 		</div>
-		<div id="progresstext"><div style="color: red;">Recording not yet submitted</div></div>
+		<div id="progresstext"><div style="color: red;"><?php echo($langar['RecorderNotYet'])?></div></div>
 	</div>
 	</div>
 	</div>
