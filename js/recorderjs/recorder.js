@@ -114,6 +114,7 @@ DEALINGS IN THE SOFTWARE.
                             callback('upload-ended');
                             return;
                         }
+
                         document.querySelector('.header').parentNode.style = 'text-align: left; color: red; padding: 5px 10px;';
                         document.querySelector('.header').parentNode.innerHTML = request.responseText;
                     }
@@ -128,7 +129,11 @@ DEALINGS IN THE SOFTWARE.
                 };
 
                 request.upload.onload = function() {
-                    callback('\u2713');
+                    callback('progress-about-to-end');
+                };
+
+                request.upload.onload = function() {
+                    callback('Getting File URL..');
                 };
 
                 request.upload.onerror = function(error) {
@@ -140,7 +145,6 @@ DEALINGS IN THE SOFTWARE.
                 };
 
                 request.open('POST', url);
-                request.withCredentials = true;
                 request.send(data);
             }
 
@@ -155,7 +159,7 @@ DEALINGS IN THE SOFTWARE.
     var d = new Date();
     var filename = (d.getTime()).toString() + ".wav";
     console.log('Setting up Php Post');
-    filename = "RecordRTC-" + user_id + "-" + filename;
+    filename = "RecordRTC-" + filename;
     var formData = new FormData();
     formData.append('audio' + '-filename', filename);
     formData.append('audio' + '-blob', blob);
@@ -168,17 +172,17 @@ DEALINGS IN THE SOFTWARE.
         callback('ended');
 
     });
-    //var request = new XMLHttpRequest();
+    // var request = new XMLHttpRequest();
 
-    //request.open('POST', '/save.php');
-    //request.send(formData);
+    // request.open('POST', '/save.php');
+    // request.send(formData);
     console.log('PHP post submitted');
     var savebutton = document.getElementById("save");
     savebutton.style.opacity="0.25";
-    var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    var link = document.getElementById("save");
-    //link.href = url;
-    //link.download = filename || 'output.wav';
+    // var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    // var link = document.getElementById("save");
+    // link.href = url;
+    // link.download = filename || 'output.wav';
   }
 
   window.Recorder = Recorder;
