@@ -1,11 +1,11 @@
 <?php
 	$langar = array(
 		"IndexTitle" => "Crossling Corpora",
-		"IndexText" => "Bienvenue! Nous vous remercions de votre interet pour le projet Crossling Corpora!<br><br>Le projet vise a acummuler des donnees linguistiques sur deux generations dans de multiples langues a des fins scientifiques. Cliquez sur le bouton ci-dessous pour commencer.",
+		"IndexText" => "Bienvenue! Nous vous remercions de votre intéret pour le projet Crossling Corpora!<br><br>Le projet vise a acummuler des donnees linguistiques sur deux generations dans de multiples langues a des fins scientifiques. Cliquez sur le bouton ci-dessous pour commencer.",
 		"IndexLink" => "Participer au projet.",
 		"ConsentTitle" => "Etes-vous consentant?",
 		"ConsentParticipation" => "1. Consentement a la participation",
-		"ConsentParticipationText" => "If you agree to participate in the study, type your name and email address in the boxes below and tick the “I consent to participate” box. Participation includes using your anonymized speech recordings in our database, sharing it with other researchers through a closed registration-only website, and publishing your anonymous survey results.",
+		"ConsentParticipationText" => "If you agree to participate in the study, type your name and email address in the boxes below and tick the 'I consent to participate' box. Participation includes using your anonymized speech recordings in our database, sharing it with other researchers through a closed registration-only website, and publishing your anonymous survey results.",
 		"ConsentName" => "Nom:",
 		"ConsentEmail" => "Email:",
 		"ConsentParticipationConsent" => "Je consens a participer.",
@@ -13,9 +13,10 @@
 		"ConsentPublicationText1" => "If you consent, excerpts from your audio recordings may be shared with the public in the presentation of results from our database. In all cases, your name will never be associated with the recordings. You may be referred to as, for example, ",
 		"ConsentPublicationText2" => ", etc. If you consent to these uses of data, please tick the box below. If you do not consent to this use of your data, please do not tick the box.",
 		"ConsentPublicationConsent" => "Je consens a ce que des extraits de mes enregistrements soient publies. (Optionnel)",
+		"Submit" => "Je consens",
 		"DemoTitle" => "Questionnaire Demographique",
 		"Age" => "Age:",
-		"Gender" => "Titre:",
+		"Gender" => "Genre:",
 		"PoB" => "Lieu de naissance:",
 		"Location" => "Lieu de residence:",
 		"SpokenLanguages" => "Autres langues que vous parlez:",
@@ -36,7 +37,7 @@
 	        <li>De quoi etes vous le plus fier(e) dans la vie? Cela a-t-il eu une influence sur la votre?</li>
 	        <li>Quel est le meilleur conseil que vous ayez recu?</li>
 	        <li>Parlez-nous de votre film/livre/oeuvre prefere.</li>
-	        <li>Aimiez-vous l'ecole? Quelles matieres vous plaisaient-elles le plus? Le moins?</li>
+	        <li>Aimiez-vous l'école? Quelles matieres vous plaisaient-elles le plus? Le moins?</li>
 	    	</ul>",
 	    "RecorderRec" => "Lancer/Arreter l'Enregistrement",
 	    "RecorderSave" => "Envoyer l'Enregistrement",
