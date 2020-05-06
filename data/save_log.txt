@@ -1,0 +1,22 @@
+here!
+here!
+here again!
+audioblob not empty, mate!
+ouchie!
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12
+eng16-1575589512677.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12
+eng16-1575589608665.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12
+eng16-1575589650092.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12
+eng16-1575590864390.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12
+eng16-1575590892726.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12
+eng16-1575590908111.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12-1575590969911.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12-1575591349067.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12-1575591365207.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 12-1575591395797.wav
+data/RecordRTC-Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /Users/soskuthy/Sites/recorder.php:11) in /Users/soskuthy/Sites/recorder.php on line 11-1575591543673.wav

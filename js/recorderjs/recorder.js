@@ -159,7 +159,7 @@ DEALINGS IN THE SOFTWARE.
     var d = new Date();
     var filename = (d.getTime()).toString() + ".wav";
     console.log('Setting up Php Post');
-    filename = "RecordRTC-" + filename;
+    filename = "RecordRTC-" + user_id + "-" + filename;
     var formData = new FormData();
     formData.append('audio' + '-filename', filename);
     formData.append('audio' + '-blob', blob);

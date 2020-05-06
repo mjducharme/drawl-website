@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
 <?php
 session_start();
 require_once "language/".$_SESSION['lang']."/main.php";
 ?>
+<!DOCTYPE html>
+<html>
 <style>
   form {
     /* Just to center the form on the page */

@@ -88,6 +88,9 @@ function selfInvoker()
     
     $filePath = 'uploads/' . $fileName;
     
+    //error_log("this is the file path:" . $filePath);
+    //return
+    
     // make sure that one can upload only allowed audio/video files
     $allowed = array(
         'webm',
@@ -132,4 +135,4 @@ function return_bytes($val) {
 */
 
 selfInvoker();
-?>hi
+?>

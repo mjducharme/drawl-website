@@ -10,7 +10,7 @@ function test_input($data) {
 session_start();
 // define variables and set to empty values
 $user = test_input($_SESSION["user_id"]);
-print("hi ".$user);
+// print("hi ".$user);
 $age = $gender = $place_of_birth = $place_of_residence = $l2 = $l3 = $l4 = $l5 = $l6 = "";
 //$language = "eng";
 
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $l6 = test_input($_POST["user_l6"]);
 }
 
-$demo_full = array_map('str_getcsv', file("/data/demographic_data.csv"));
+$demo_full = array_map('str_getcsv', file("data/demographic_data.csv"));
 array_walk($demo_full, function(&$a) use ($demo_full) {
       $a = array_combine($demo_full[0], $a);
     });

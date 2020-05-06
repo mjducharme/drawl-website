@@ -1,5 +1,13 @@
-<DOCTYPE html>
+<?php
+	session_start(); 
+    $user_id = $_SESSION["user_id"];
+    $reading_passage = file_get_contents('language/'.$_SESSION["lang"].'/reading_passage.txt');
+    require_once "language/".$_SESSION['lang']."/main.php";
+ ?>
+
+<!DOCTYPE html>
 <html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
   <script src="/bootstrap/js/jquery.min.js"></script>
   <script src="/bootstrap/js/bootstrap.min.js"></script>
@@ -8,26 +16,32 @@
 	<title>Audio Recorder</title>
 
     <div id="dom-target" style="display: none;">
-    <?php
-        session_start();
-        $user_id = $_SESSION["user_id"];
-        echo htmlspecialchars($user_id);
-        $reading_passage = file_get_contents('language/'.$_SESSION["lang"].'/reading_passage.txt');
-        require_once "language/".$_SESSION['lang']."/main.php";
-    ?>
+    	<?php echo($user_id) ?>
     </div>
     <script>
         var div = document.getElementById("dom-target");
         var user_id = div.innerText.trim();
-    </script>
-    
+        navigator.permissions.query({name:'microphone'}).then(function(result) {
+		  if (result.state == 'granted') {
+
+		  } else if (result.state == 'prompt') {
+
+		  } else if (result.state == 'denied') {
+
+		  }
+		  result.onchange = function() {
+
+		  };
+		});
+    </script>   
 	<script src="js/audiodisplay.js"></script>
 	<script src="js/recorderjs/recorder.js"></script>
 	<script src="js/main.js"></script>
 
+
 <style>
-	html { overflow: hidden; }
-	body { 
+	html { overflow: scroll; }
+	body { 	
 		font: 12pt Arial, sans-serif; 
 		background: lightgrey;
 		// display: flex;
@@ -43,6 +57,8 @@
 		height: 45%;
 		box-shadow: 0px 0px 10px blue;
 	}
+	h4 {color: #337ab7;}
+
 	#controls {
 		display: flex;
 		flex-direction: column;
@@ -53,7 +69,7 @@
 	#buttons {
 		display: flex;
 		flex-direction: row;
-                text-align: center;
+        text-align: center;
 		align-items: center;
 		padding: 10px 0px;
 		width: 100%;
@@ -75,28 +91,31 @@
 	}
 
 
-
-.column-container {display: flex; width: 100%; height: 100%; flex-direction: row;}
-.second-column { display:flex; flex-direction: column; width: 30%; min-width: 300px; overflow: auto; }
-.first-column { flex: 1 1; border: none; margin: 0; padding: 0; overflow: auto; -webkit-overflow-scrolling:touch; }
+.column-container {display: flex; width: 100%; height: 100%; flex-direction: row; overflow: auto;}
+.second-column { display:flex; flex-direction: column; overflow: auto; }
+.first-column { flex: 1 1; border: none; margin: 0; padding: 0; overflow: auto; min-width: 375px;}
 .container { overflow:overlay; max-height: 85%; width:100%;}
+.btntext {max-width: 100px;}
 
 	// #save, #save img { height: 10vh; }
 
 	#save { opacity: 0.25;}
 	#save[download] { opacity: 1;}
 	#viz {
+		margin-top: 10px;
 		height: 55%;
 		width: 100%;
+		max-width: 350px;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
 		align-items: center;
 	}
 	@media (orientation: portrait) {
-		.column-container { flex-direction: column;}
-		.second-column { width: 100%; height: 40%; }
-		#viz { height: 150px; }
+		.column-container { flex-direction: column; width: 100%; height: 100%;}
+		.first-column { width: 100%; max-height: 55%; overflow: auto;}
+		.second-column { width: 100%; min-width: 300px;}
+		/*#viz { height: 150px; }*/
 		#record, #exit, #save img { height: 10vw;}
 		#controls { font-size: 3vw; } 
 		// #controls { flex-direction: column; height: 100%; width: 100%;}
@@ -106,20 +125,16 @@ object{  width: 100%;  height: 60%; font-family: arial, sans-serif;}
 table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;}
 
 
-@supports (-webkit-overflow-scrolling: touch) {
-  .first-column { width: 50%; }
-  .second-column { width: 50%; }
-}
-
 
 </style>
 </head>
 <body>
-	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1">Recorder Tool</span>
-    </nav>
 	<div class="column-container">
 	<div class="first-column">
+
+	<nav class="navbar navbar-primary bg-primary">
+        <span class="navbar-brand mb-0 h1"><?php echo($langar['RecorderTitle'])?></span>
+    </nav>
 		<div class="container">
   <div class="panel-group" id="accordion">
     <div class="panel panel-default">
@@ -164,11 +179,72 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 	</div>
 	<div id="controls">
 		<div id="buttons">
-		<div id="record-div"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="images/mic128.png" width="70" height="70"><br/><div id="rectext"><?php echo($langar['RecorderRec'])?></div></a></div>
-		<div id="save-div"><a id="save" href="#" onclick="startSubmit(this);"><img src="images/save.svg" width="70" height="70"><br/><?php echo($langar['RecorderSave'])?></a></div>
+		<div id="record-div" class="btntext"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="images/mic128.png" width="70" height="70"><br/><div id="rectext"><?php echo($langar['RecorderRec'])?></div></a></div>
+		<div id="save-div" class="btntext"><a id="save" href="#" onclick="startSubmit(this);"><img src="images/save.svg" width="70" height="70"><br/><?php echo($langar['RecorderSave'])?></a></div>
+		<h4 id="rectime"><time>00:00:00</time></h4>
 		</div>
+
 		<div id="progresstext"><div style="color: red;"><?php echo($langar['RecorderNotYet'])?></div></div>
 	</div>
 	</div>
 	</div>
-</body></html>
+</body>
+
+<script>
+		var h1 = document.getElementById('rectime'),
+	  start = document.getElementById('record'),
+	  stop = document.getElementById('stop'),
+	  clear = document.getElementById('clear'),
+	  cmpt = 0,
+	  seconds = 0,
+	  minutes = 0,
+	  hours = 0,
+	  t;
+
+	function add() {
+	  seconds++;
+	  if (seconds >= 60) {
+	    seconds = 0;
+	    minutes++;
+	    if (minutes >= 60) {
+	      minutes = 0;
+	      hours++;
+	    }
+	  }
+
+	  h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+	  timer();
+	}
+
+	function timer() {
+	  t = setTimeout(add, 1000);
+	}
+	timer();
+
+	window.onload=function()
+	{
+	    clearTimeout(t);
+	      h1.textContent = "00:00:00";
+	      seconds = 0;
+	      minutes = 0;
+	      hours = 0;
+	}
+	/* Start button */
+	start.onclick = function() {
+	  if (cmpt % 2 == 0) {
+	    timer();
+	  } 
+	  else {
+	    clearTimeout(t);
+	      h1.textContent = "00:00:00";
+	      seconds = 0;
+	      minutes = 0;
+	      hours = 0;
+	  }
+	  cmpt++;
+
+	}
+</script>
+
+</html>

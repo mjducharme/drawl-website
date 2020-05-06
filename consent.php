@@ -38,5 +38,5 @@ fclose($myfile);
 session_start();
 $_SESSION["user_id"] = $language.$curr_code;
 $_SESSION['lang'] = $language;
-header('Location: /demographic_questionnaire.php');
+header('Location: demographic_questionnaire.php');
 ?>

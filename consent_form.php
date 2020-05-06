@@ -1,6 +1,5 @@
 <?php
-	#include "language.php";
-	$allowed = array('eng','fra');
+	$allowed = array('eng','fra','pam','ceb');
 	if (!isset($lang) && !($_GET["lang"]) || !in_array(($_GET["lang"]), $allowed)) {
 		$lang = 'eng';
 	}
@@ -29,7 +28,7 @@ h1 {margin: auto;}
   padding: 1em;
   border: 1px solid #CCC;
   border-radius: 1em;
-  overflow:overlay;
+  overflow:scroll;
 }
 
 form {display: flex; margin: auto; width: 80%; height: 100%; flex-direction: row;}
@@ -110,7 +109,7 @@ textarea {
             <?php echo($langar['ConsentParticipationConsent'])?>
         </div>
         <div class="submit">
-            <button type="submit" id="c_button" disabled="true">Submit</button>
+            <button type="submit" id="c_button" disabled="true"><?php echo($langar['Submit'])?></button>
         </div>
         </div>
         <div class="publication">
