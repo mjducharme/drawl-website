@@ -9,8 +9,9 @@ class WelcomePageController extends Controller
     /**
      * Show the welcome page
      */
-    public function show()
+    public function show($locale)
     {
+        \App::setLocale($locale);
         return view('welcome');
     }
 }

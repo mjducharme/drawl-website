@@ -9,8 +9,8 @@ class StartPageController extends Controller
     /**
      * Show the start page
      */
-    public function show()
+    public function index()
     {
-        return view('startpage', ['languages' => [[ "name" => "English", "id" => "eng" ]]]);
+        return view('startpage', ['languages' => [[ "name" => "English", "id" => "en" ],[ "name" => "French", "id" => "fr" ]]]);
     }
 }

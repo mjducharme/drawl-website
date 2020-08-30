@@ -1,7 +1,3 @@
-<?php
-session_start();
-require_once "language/".$_SESSION['lang']."/main.php";
-?>
 <!DOCTYPE html>
 <html>
 <style>
@@ -68,36 +64,38 @@ require_once "language/".$_SESSION['lang']."/main.php";
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Demographic questionnaire</title>
-        <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-        <script src="/bootstrap/js/bootstrap.min.js"></script>
-        <script src="/bootstrap/js/jquery.min.js"></script>
+        <title>@lang('messages.DemoTitle')</title>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
     </head>
     <body>
       <nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1"><?php echo($langar['DemoTitle'])?></span>
+        <span class="navbar-brand mb-0 h1">@lang('messages.DemoTitle')</span>
       </nav>
     </body>
-    <form action="/demographic.php" method="post">
+    <form action="{{ route('demographic_questionnaires.store') }}" method="post">
+        @csrf
         <div>
-            <label for="age"><?php echo($langar['Age'])?></label>
+            <label for="age">@lang('messages.Age')</label>
             <input type="number" id="age" name="user_age" min="0" required>
         </div>
         <div>
-            <label for="gender"><?php echo($langar['Gender'])?></label>
+            <label for="gender">@lang('messages.Gender')</label>
             <input type="text" id="gender" name="user_gender" required>
         </div>
         <div>
-            <label for="pob"><?php echo($langar['PoB'])?></label>
+            <label for="pob">@lang('messages.PoB')</label>
             <input type="text" id="pob" name="user_pob" required>
         </div>
         <div>
-            <label for="cpor"><?php echo($langar['Location'])?></label>
+            <label for="cpor">@lang('messages.Location')</label>
             <input type="text" id="cpor" name="user_cpor" required>
         </div>
         <div class=text-center>
             <fieldset>
-            <legend><?php echo($langar['SpokenLanguages'])?></legend>
+            <legend>@lang('messages.SpokenLanguages')</legend>
                 <input type="text" name="user_l2"><br>
                 <input type="text" name="user_l3"><br>
                 <input type="text" name="user_l4"><br>
@@ -106,7 +104,7 @@ require_once "language/".$_SESSION['lang']."/main.php";
             </fieldset>
         </div>
         <div class="button">
-            <button type="submit"><?php echo($langar['Next'])?></button>
+            <button type="submit">@lang('messages.Next')</button>
         </div>
     </form>
 </html>

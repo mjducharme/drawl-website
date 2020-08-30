@@ -69,7 +69,7 @@ function startSubmit() {
     Recorder.setupPhpPost( tempblob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav", function(progress) {
     var progresstext = document.getElementById('progresstext');
     if (progress === 'ended') {
-        progresstext.innerHTML = 'Upload Successful<br/><a href="#" onclick="window.location = document.getElementById(\'iframe\').src;">Close Recording Pane</a><br/>';
+        progresstext.innerHTML = 'Upload Successful!';
         return;
     }
     progresstext.innerHTML = progress;

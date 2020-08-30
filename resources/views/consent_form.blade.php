@@ -1,21 +1,8 @@
-<?php
-	$allowed = array('eng','fra','pam','ceb');
-	if (!isset($lang) && !($_GET["lang"]) || !in_array(($_GET["lang"]), $allowed)) {
-		$lang = 'eng';
-	}
-	else {
-		$lang = ($_GET["lang"]);
-	}
-	require_once "language/".$lang."/main.php";
-	$worker="consent.php?lang=".$lang;
-	$consent_text = file_get_contents('language/'.$lang.'/consent.txt');
-?>
-
 <!DOCTYPE html>
 <html>
-<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src="/bootstrap/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <style>
 h1 {margin: auto;}
 
@@ -85,39 +72,40 @@ textarea {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Consent form</title>
+        <title>@lang('messages.ConsentTitle')</title>
     </head>
     <body>
     	<nav class="navbar navbar-primary bg-primary">
-  			<span class="navbar-brand mb-0 h1"><?php echo($langar['ConsentTitle'])?></span>
+  			<span class="navbar-brand mb-0 h1">@lang('messages.ConsentTitle')</span>
 		</nav>
-        <div class="consent_text" data-spy="scroll"><?php echo $consent_text?></div>
+        <div class="consent_text" data-spy="scroll">@include('includes.'.$locale.".consent_text")</div>
     </body>
-    <form action=<?php echo($worker); ?> method="post">
-        <div class="participation"><h4><?php echo($langar['ConsentParticipation'])?></h4>
-<p><?php echo($langar['ConsentParticipationText'])?></p>
+    <form action="{{ route('consent_forms.store') }}" method="post">
+        @csrf
+        <div class="participation"><h4>@lang('messages.ConsentParticipation')</h4>
+        <p>@lang('messages.ConsentParticipationText')</p>
         <div>
-            <label for="name"><?php echo($langar['ConsentName'])?></label>
+            <label for="name">@lang('messages.ConsentName')</label>
             <input type="text" id="name" name="user_name" class="field" required>
         </div>
         <div>
-            <label for="email"><?php echo($langar['ConsentEmail'])?></label>
+            <label for="email">@lang('messages.ConsentEmail')</label>
             <input type="email" id="email" name="user_email" class="field" required>
         </div>
         <div class="checkbox">
             <input type="checkbox" name="consent_box" onchange="document.getElementById('c_button').disabled = !this.checked" required>
-            <?php echo($langar['ConsentParticipationConsent'])?>
+            @lang('messages.ConsentParticipationConsent')
         </div>
         <div class="submit">
-            <button type="submit" id="c_button" disabled="true"><?php echo($langar['Submit'])?></button>
+            <button type="submit" id="c_button" disabled="true">@lang('messages.Submit')</button>
         </div>
         </div>
         <div class="publication">
-        <h4><?php echo($langar['ConsentPublication'])?></h4>
-<p><?php echo($langar['ConsentPublicationText1'].'['.$lang.'-1], ['.$lang.'-2]'.$langar['ConsentPublicationText2']) ?></p>
+        <h4>@lang('messages.ConsentPublication')</h4>
+<p>@lang('messages.ConsentPublicationText1')<?php echo('['.$locale.'-1], ['.$locale.'-2]') ?>@lang('messages.ConsentPublicationText2')</p>
         <div class="checkbox">
         <input type="checkbox" name="share_box">
-        <?php echo($langar['ConsentPublicationConsent'])?>
+        @lang('messages.ConsentPublicationConsent')
         </div>
         </div>
     </form>

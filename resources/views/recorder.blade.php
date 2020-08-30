@@ -1,22 +1,16 @@
-<?php
-	session_start(); 
-    $user_id = $_SESSION["user_id"];
-    $reading_passage = file_get_contents('language/'.$_SESSION["lang"].'/reading_passage.txt');
-    require_once "language/".$_SESSION['lang']."/main.php";
- ?>
-
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-  <script src="/bootstrap/js/jquery.min.js"></script>
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 <meta http-equiv="content-type" content="text/html; charset=windows-1252">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>Audio Recorder</title>
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
+	<title>@lang('messages.RecorderTitle')</title>
 
     <div id="dom-target" style="display: none;">
-    	<?php echo($user_id) ?>
+    	{{ Session::get('user_id') }}
     </div>
     <script>
         var div = document.getElementById("dom-target");
@@ -33,10 +27,10 @@
 
 		  };
 		});
-    </script>   
-	<script src="js/audiodisplay.js"></script>
-	<script src="js/recorderjs/recorder.js"></script>
-	<script src="js/main.js"></script>
+	</script>
+	<script src="{{ asset('js/audiodisplay.js') }}"></script>
+	<script src="{{ asset('js/recorderjs/recorder.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
 
 
 <style>
@@ -133,38 +127,38 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 	<div class="first-column">
 
 	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1"><?php echo($langar['RecorderTitle'])?></span>
+        <span class="navbar-brand mb-0 h1">@lang('messages.RecorderTitle')</span>
     </nav>
 		<div class="container">
   <div class="panel-group" id="accordion">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><?php echo($langar['RecorderInstructionsTitle'])?></a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">@lang('messages.RecorderInstructionsTitle')</a>
         </h4>
       </div>
       <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body"> <?php echo($langar['RecorderInstructions'])?></div>
+        <div class="panel-body">@lang('messages.RecorderInstructions')</div>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><?php echo($langar['RecorderReadingTitle'])?></a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">@lang('messages.RecorderReadingTitle')</a>
         </h4>
       </div>
       <div id="collapse2" class="panel-collapse collapse">
-        <div class="panel-body"><?php echo $reading_passage ?></div>
+        <div class="panel-body">@include('includes.'.$locale.".reading_passage")</div>
       </div>
     </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><?php echo($langar['RecorderSpontaneous'])?></a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">@lang('messages.RecorderSpontaneous')</a>
         </h4>
       </div>
       <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body"><?php echo($langar['RecorderList'])?></div>
+        <div class="panel-body">@lang('messages.RecorderList')</div>
       </div>
     </div>
   </div> 
@@ -179,12 +173,12 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 	</div>
 	<div id="controls">
 		<div id="buttons">
-		<div id="record-div" class="btntext"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="images/mic128.png" width="70" height="70"><br/><div id="rectext"><?php echo($langar['RecorderRec'])?></div></a></div>
-		<div id="save-div" class="btntext"><a id="save" href="#" onclick="startSubmit(this);"><img src="images/save.svg" width="70" height="70"><br/><?php echo($langar['RecorderSave'])?></a></div>
+		<div id="record-div" class="btntext"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="{{ asset('images/mic128.png') }}" width="70" height="70"><br/><div id="rectext">@lang('messages.RecorderRec')</div></a></div>
+		<div id="save-div" class="btntext"><a id="save" href="#" onclick="startSubmit(this);"><img src="{{ asset('images/save.svg') }}" width="70" height="70"><br/>@lang('messages.RecorderSave')</a></div>
 		<h4 id="rectime"><time>00:00:00</time></h4>
 		</div>
 
-		<div id="progresstext"><div style="color: red;"><?php echo($langar['RecorderNotYet'])?></div></div>
+		<div id="progresstext"><div style="color: red;">@lang('messages.RecorderNotYet')</div></div>
 	</div>
 	</div>
 	</div>

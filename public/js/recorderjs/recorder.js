@@ -19,7 +19,7 @@ DEALINGS IN THE SOFTWARE.
 
 (function(window){
 
-  var WORKER_PATH = 'js/recorderjs/recorderWorker.js';
+  var WORKER_PATH = '../js/recorderjs/recorderWorker.js';
 
   var Recorder = function(source, cfg){
     var config = cfg || {};
@@ -144,7 +144,10 @@ DEALINGS IN THE SOFTWARE.
                     callback('Upload aborted.');
                 };
 
+                token = document.querySelector('meta[name="csrf-token"]').content;
+
                 request.open('POST', url);
+                request.setRequestHeader('X-CSRF-TOKEN', token);
                 request.send(data);
             }
 
@@ -163,7 +166,7 @@ DEALINGS IN THE SOFTWARE.
     var formData = new FormData();
     formData.append('audio' + '-filename', filename);
     formData.append('audio' + '-blob', blob);
-    makeXMLHttpRequest('/save.php', formData, function(progress) {
+    makeXMLHttpRequest('/recordings', formData, function(progress) {
         if (progress !== 'upload-ended') {
             callback(progress)
             return;

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<style>
 		h4{
 			margin: 0 auto; 
@@ -27,7 +27,7 @@
 		</span>
 	</nav>
 	@foreach ($languages as $language)
-		<h4><a class=button href='{{ route('welcomepage.show') }}?lang={{ $language["id"] }}'>{{ $language["name"] }}</a></h4>
+		<h4><a class=button href='{{ route('welcome.show', $language["id"]) }}'>{{ $language["name"] }}</a></h4>
 	@endforeach
 </body>
 </html>

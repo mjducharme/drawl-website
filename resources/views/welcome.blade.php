@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script>
 		function initAudio() {
 	    // Older browsers might not implement mediaDevices at all, so we set an empty object first
@@ -64,14 +64,14 @@
   			border-radius: 1em ;  		}
   	</style>
 <meta charset="UTF-8">
-<title>Xling</title>
+<title>	{{ config('app.name') }} </title>
 </head>
 <body>
 	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1">{{ $langar['IndexTitle'] }}</span>
+        <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle')</span>
     </nav>
-	<h4><?php echo($langar['IndexText'])?></h4><h4>
-	<a class=button href= <?php echo("consent_form.php?lang=".$lang) ;?> ><?php echo($langar['IndexLink'])?></a></h4>
+	<h4>>@lang('messages.IndexText')</h4><h4>
+	<a class=button href="{{ route('consent_forms.create') }}") ;?> >@lang('messages.IndexLink')</a></h4>
     
 </body>
 </html>
