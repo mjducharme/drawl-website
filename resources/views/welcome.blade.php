@@ -1,100 +1,77 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script>
+		function initAudio() {
+	    // Older browsers might not implement mediaDevices at all, so we set an empty object first
+	    if (navigator.mediaDevices === undefined) {
+	        navigator.mediaDevices = {};
+	    }
 
-        <title>Laravel</title>
+	// Some browsers partially implement mediaDevices. We can't just assign an object
+	// with getUserMedia as it would overwrite existing properties.
+	// Here, we will just add the getUserMedia property if it's missing.
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+	    if (navigator.mediaDevices.getUserMedia === undefined) {
+	        navigator.mediaDevices.getUserMedia = function(constraints) {
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+	        // First get ahold of the legacy getUserMedia, if present
+	        var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-            .full-height {
-                height: 100vh;
-            }
+	        // Some browsers just don't implement it - return a rejected promise with an error
+	        // to keep a consistent interface
+	        if (!getUserMedia) {
+	            window.alert("Sorry, your web browser does not seem to support Web Audio API. The online recorder will not function. Please try upgrading your browser, or try a different browser.");
+	            return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+	        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+	        // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+	        return new Promise(function(resolve, reject) {
+	            getUserMedia.call(navigator, constraints, resolve, reject);
+	        });
+	        }
+	    }
 
-            .position-ref {
-                position: relative;
-            }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+	    if (!navigator.cancelAnimationFrame)
+	        navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
+	    if (!navigator.requestAnimationFrame)
+	        navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
 
-            .content {
-                text-align: center;
-            }
+	    navigator.mediaDevices.getUserMedia({"audio": true})
+	    .then(function(stream) {
+	            return gotStream(stream);
+	    })
+	    .catch(function(e) {
+	            
+	     
+	           console.log(e);
+	    });
+	}
 
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </body>
+	window.addEventListener('load', initAudio );
+	</script>
+	<style>
+		h4{
+			margin: 0 auto; 
+			margin-top: 3%;
+			padding: 10px;
+			width: 75%;
+			border: 1px solid #CCC;
+  			border-radius: 1em ;  		}
+  	</style>
+<meta charset="UTF-8">
+<title>Xling</title>
+</head>
+<body>
+	<nav class="navbar navbar-primary bg-primary">
+        <span class="navbar-brand mb-0 h1">{{ $langar['IndexTitle'] }}</span>
+    </nav>
+	<h4><?php echo($langar['IndexText'])?></h4><h4>
+	<a class=button href= <?php echo("consent_form.php?lang=".$lang) ;?> ><?php echo($langar['IndexLink'])?></a></h4>
+    
+</body>
 </html>
