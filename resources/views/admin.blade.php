@@ -31,10 +31,12 @@
                     @endif
 
                     The following users require authorization, or deletion if they should not have access:
-
-                    @foreach ($users as $user)
-                        <p>UserID {{ $user->id }} : {{ $user->name }}</p>
-                    @endforeach
+                    <table width="100%">
+                        </tr><th>ID</th><th>Name</th><th>Email</th></tr>
+                        @foreach ($users as $user)
+                            <tr><td>{{ $user->id }}</td><td>{{ $user->name }}</td><td>{{ $user->email }}</td></tr>
+                        @endforeach
+                    </table>
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -23,9 +24,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = \App\User::has('authorized', '==', 1)->get();
+        $users = \App\User::where('authorized', '0')->get();
 
         return view('admin',
-            compact('users'));
+            [ 'users' => $users ]);
     }
 }
