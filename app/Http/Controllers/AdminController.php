@@ -23,6 +23,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        $users = \App\User::has('authorized', '==', 1)->get();
+
+        return view('admin',
+            compact('users'));
     }
 }

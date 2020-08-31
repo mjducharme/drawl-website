@@ -14,4 +14,6 @@ WEBLING is developed using the Laravel framework on PHP.
 
 Needs more detail, but:
 
-Fetch the repository and run "composer install" in the root to install dependencies. No database is necessary.
+Fetch the repository and run "composer install" in the root to install dependencies.
+Then run "php artisan migrate" to create the SQLite tables.
+Copy .env.example to .env and customize as necessary.

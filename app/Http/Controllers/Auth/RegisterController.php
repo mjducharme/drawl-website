@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -64,10 +65,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $authorized = 0;
+        $usercount = \App\User::all()->count();
+
+        Log::Info('User count is '.$usercount);
+
+        if ($usercount == 0) {
+            Log::Info('User is first user, setting as authorized');
+            $authorized = 1;
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'authorized' => $authorized
         ]);
     }
 }
