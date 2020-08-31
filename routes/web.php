@@ -21,3 +21,7 @@ Route::post('/demographic_questionnaires','DemographicQuestionnaireController@st
 Route::get('/recordings/create','RecordingController@create')->name('recordings.create');
 Route::post('/recordings','RecordingController@store')->name('recordings.store');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

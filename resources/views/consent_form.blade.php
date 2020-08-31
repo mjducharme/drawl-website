@@ -83,7 +83,7 @@ textarea {
     <form action="{{ route('consent_forms.store') }}" method="post">
         @csrf
         <div class="participation"><h4>@lang('messages.ConsentParticipation')</h4>
-        <p>@lang('messages.ConsentParticipationText')</p>
+        <p>@include('includes.'.$locale.".consent_participation_text")</p>
         <div>
             <label for="name">@lang('messages.ConsentName')</label>
             <input type="text" id="name" name="user_name" class="field" required>
@@ -102,7 +102,7 @@ textarea {
         </div>
         <div class="publication">
         <h4>@lang('messages.ConsentPublication')</h4>
-<p>@lang('messages.ConsentPublicationText1')<?php echo('['.$locale.'-1], ['.$locale.'-2]') ?>@lang('messages.ConsentPublicationText2')</p>
+        <p>@include('includes.'.$locale.".consent_publication_text")</p>
         <div class="checkbox">
         <input type="checkbox" name="share_box">
         @lang('messages.ConsentPublicationConsent')

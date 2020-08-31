@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Recording;
 
 class RecordingController extends Controller
 {
@@ -27,6 +28,9 @@ class RecordingController extends Controller
         // Documentation - https://github.com/muaz-khan/RecordRTC
 
         Log::Info('About to upload recording.');
+
+        // define variables and set to empty values
+        $user = $this->test_input($request->session()->get('user_id'));
 
         if (!isset($_POST['audio-filename']) && !isset($_POST['video-filename'])) {
             error_log ('Empty file name');
@@ -98,7 +102,7 @@ class RecordingController extends Controller
         }
         */
         
-        $filePath = '../uploads/' . $fileName;
+        $filePath = '../storage/app/audio/' . $fileName;
         
         //error_log("this is the file path:" . $filePath);
         //return
@@ -127,12 +131,24 @@ class RecordingController extends Controller
         
         echo 'success';
 
+        $testModel = Recording::create([
+            'consent_form_id' => $user,
+            'recording_filename' => $fileName
+        ]);
+
     }
 
     private function someFunction($errno, $errstr)
     {
         echo '<h2>Upload failed.</h2><br>';
         echo '<p>'.$errstr.'</p>';
+    }
+
+    private function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 
     /*

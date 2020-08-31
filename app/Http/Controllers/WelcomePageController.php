@@ -12,6 +12,7 @@ class WelcomePageController extends Controller
     public function show($locale)
     {
         \App::setLocale($locale);
-        return view('welcome');
+        return view('welcome',
+        [    'locale' => \App::getLocale() ]);
     }
 }

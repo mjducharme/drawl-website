@@ -138,7 +138,7 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
         </h4>
       </div>
       <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">@lang('messages.RecorderInstructions')</div>
+        <div class="panel-body">@include('includes.'.$locale.".recorder_instructions")</div>
       </div>
     </div>
     <div class="panel panel-default">
@@ -158,7 +158,7 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
         </h4>
       </div>
       <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body">@lang('messages.RecorderList')</div>
+        <div class="panel-body">@include('includes.'.$locale.".spontaneous_prompts")</div>
       </div>
     </div>
   </div> 

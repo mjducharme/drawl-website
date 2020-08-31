@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\DemographicQuestionnaire;
 
 class DemographicQuestionnaireController extends Controller
 {
@@ -37,16 +38,18 @@ class DemographicQuestionnaireController extends Controller
         $l4 = $this->test_input($request->user_l4);
         $l5 = $this->test_input($request->user_l5);
         $l6 = $this->test_input($request->user_l6);
-        
-        $demo_full = array_map('str_getcsv', file("../database/csvdata/demographic_data.csv"));
-        array_walk($demo_full, function(&$a) use ($demo_full) {
-            $a = array_combine($demo_full[0], $a);
-            });
-        array_shift($demo_full); # remove column header
-        
-        $myfile = fopen("../database/csvdata/demographic_data.csv", "a") or die("Unable to open file!");
-        fwrite($myfile,'"'.$user.'","'.$age.'","'.$gender.'","'.$place_of_birth.'","'.$place_of_residence.'","'.$l2.'","'.$l3.'","'.$l4.'","'.$l5.'","'.$l6.'"'."\n");
-        fclose($myfile);
+
+        $testModel = DemographicQuestionnaire::create([
+            'consent_form_id' => $user,
+            'user_age' => $age,
+            'user_pob' => $place_of_birth,
+            'user_cpor' => $place_of_residence,
+            'user_l2' => $l2,
+            'user_l3' => $l3,
+            'user_l4' => $l4,
+            'user_l5' => $l5,
+            'user_l6' => $l6,
+        ]);
         
         return redirect()->route('recordings.create');
     }
