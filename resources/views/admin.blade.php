@@ -19,6 +19,7 @@
                     {{ Auth::user()->authorized ? 'You are authorized to access data.' : 'You are not authorized to access data - another administrator must authorize you!' }}
                 </div>
             </div>
+            @if (Auth::user()->authorized && Gate::allows('manage-users'))
             <br/>
             <div class="card">
                 <div class="card-header">User Authorization</div>
@@ -39,6 +40,7 @@
                     </table>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>
