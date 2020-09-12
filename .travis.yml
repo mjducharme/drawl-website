@@ -1,0 +1,22 @@
+# .travis.yml
+dist: precise
+
+language: php
+
+php:
+  - 7.2
+
+cache:
+  directories:
+    - node_modules
+    - vendor
+
+before_script:
+  - cp .env.travis .env
+  - touch database/database.sqlite
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan migrate --no-interaction -vvv
+
+script:
+  - vendor/bin/phpunit
