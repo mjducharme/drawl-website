@@ -9,4 +9,4 @@
 <p>It was time to go. He sighed, stubbed out his cigarette, dumped things in the sink to wash later, and helped Danny into his boots and raincoat. Danny picked up his school bag and they headed out together into the Vancouver dawn.</p>
 <p>© 2017/18 B. Pritchard</p>
 <p><h4>Thank you for recording yourself reading this passage! You can now click the microphone icon to stop recording. Please submit your recording using the "Submit Recording" button.</h4></p>
-<p><h4>A successful submission should result in the message "Upload Successful!" displayed below the recorder on the right. After seeing this message, you may close your web browser. Thank you for your participation in this project!</h4></p>
+<p><h4>A successful submission should result in the message "Upload Successful!" displayed below the recorder. After seeing this message, you may close your web browser. Thank you for your participation in this project!</h4></p>
