@@ -72,11 +72,11 @@ textarea {
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>@lang('messages.ConsentTitle')</title>
+        <title>@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.ConsentTitle')</title>
     </head>
     <body>
     	<nav class="navbar navbar-primary bg-primary">
-  			<span class="navbar-brand mb-0 h1">@lang('messages.ConsentTitle')</span>
+  			<span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.ConsentTitle')</span>
 		</nav>
         <div class="consent_text" data-spy="scroll">@include('includes.'.$locale.".consent_text")</div>
     </body>

@@ -64,11 +64,11 @@
   			border-radius: 1em ;  		}
   	</style>
 <meta charset="UTF-8">
-<title>	{{ config('app.name') }} </title>
+<title>@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.WelcomeTitle')</title>
 </head>
 <body>
 	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle')</span>
+        <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.WelcomeTitle')</span>
     </nav>
 	<h4>>@include('includes.'.$locale.".welcome_message")</h4><h4>
 	<a class=button href="{{ route('consent_forms.create') }}") ;?> >@lang('messages.IndexLink')</a></h4>

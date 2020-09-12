@@ -17,13 +17,13 @@
   	</style>
 <meta charset="UTF-8">
 <title>
-	{{ config('app.name') }}
+	@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.SelectLanguageTitle')
 </title>
 </head>
 <body>
 	<nav class="navbar navbar-primary bg-primary">
         <span class="navbar-brand mb-0 h1">
-			{{ config('app.name') }}
+			@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.SelectLanguageTitle')
 		</span>
 	</nav>
 	@foreach ($languages as $language)

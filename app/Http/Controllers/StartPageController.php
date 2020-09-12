@@ -11,6 +11,6 @@ class StartPageController extends Controller
      */
     public function index()
     {
-        return view('startpage', ['languages' => [[ "name" => "English", "id" => "en" ],[ "name" => "French", "id" => "fr" ]]]);
+        return view('startpage', ['languages' => config('app.wlar_languages')]);
     }
 }

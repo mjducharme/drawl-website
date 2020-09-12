@@ -229,4 +229,6 @@ return [
 
     ],
 
+    'wlar_languages' => [[ "name" => "English", "id" => "en" ]]
+
 ];

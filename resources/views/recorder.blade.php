@@ -7,7 +7,7 @@
 <meta http-equiv="content-type" content="text/html; charset=windows-1252">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<title>@lang('messages.RecorderTitle')</title>
+	<title>@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.RecorderTitle')</title>
 
     <div id="dom-target" style="display: none;">
     	{{ Session::get('user_id') }}
@@ -127,7 +127,7 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 	<div class="first-column">
 
 	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1">@lang('messages.RecorderTitle')</span>
+        <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.RecorderTitle')</span>
     </nav>
 		<div class="container">
   <div class="panel-group" id="accordion">
@@ -150,7 +150,9 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
       <div id="collapse2" class="panel-collapse collapse">
         <div class="panel-body">@include('includes.'.$locale.".reading_passage")</div>
       </div>
-    </div>
+	</div>
+	
+	{{-- 
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
@@ -160,7 +162,8 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
       <div id="collapse3" class="panel-collapse collapse">
         <div class="panel-body">@include('includes.'.$locale.".spontaneous_prompts")</div>
       </div>
-    </div>
+	</div>
+	--}}
   </div> 
 </div>
 	</div>
