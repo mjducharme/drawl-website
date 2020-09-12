@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/mjducharme/drawl-website.svg?branch=master)](https://travis-ci.org/mjducharme/drawl-website)
+
 ## About WLAR - Web Linguistics Audio Recorder
 
 WLAR is a web application designed to facilitate linguistics research projects. It takes the user through a wizard that explains the project and conducts a survey to collect data from the user. The user is then brought to a final page where they read and can record text. Their responses and recording are saved onto the server.
