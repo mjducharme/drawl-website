@@ -30,7 +30,7 @@
                         </div>
                     @endif
 
-                    The following users require authorization, or deletion if they should not have access:
+                    The following unauthorized users require authorization, or deletion if they should not have access:
                     <table width="100%">
                         </tr><th>ID</th><th>Name</th><th>Email</th></tr>
                         @foreach ($users as $user)
