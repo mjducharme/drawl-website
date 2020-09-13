@@ -21,4 +21,4 @@ Edit config/app.php and set wlar_languages list.
 Create empty file database/database.sqlite
 Then run "php artisan migrate" to create the SQLite tables for administration interface.
 Copy .env.example to .env and customize as necessary.
-First user to register for administration interface is given admin rights, they can authorise further users from there.
+WARNING - First user to register for administration interface (/admin URL) is given admin rights, they can authorise further users from there. AFTER DEPLOYING, REGISTER IMMEDIATELY to prevent someone else from doing so.
