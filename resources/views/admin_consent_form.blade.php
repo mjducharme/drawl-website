@@ -36,9 +36,9 @@
                     <div class="card-body">
                         @foreach ($demographic_questionnaires as $demographic_questionnaire)
                             <table width="100%">
-                                <tr><td>test: {{ json_encode($demographic_questionnaire) }}</td></tr>
+                                <tr><td>{{ json_encode($demographic_questionnaire) }}</td></tr>
                                 @foreach ($demographic_questionnaire as $key => $demo)
-                                    <tr><th>{{ $key }}</th><th>{{ $demo }}</th></tr>
+                                    <tr><th>{{ $key }}</th><td>{{ $demo }}</td></tr>
                                 @endforeach
                             </table>
                         @endforeach
