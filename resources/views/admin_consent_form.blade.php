@@ -6,7 +6,11 @@
         <div class="col-md-8">
             @if (Auth::user()->authorized && Gate::allows('manage-data'))
                 <div class="card">
-                    <div class="card-header">Consent Form Details</div>
+                    <div class="card-header">Consent Form Details
+                        <div class="float-right">
+                            <a href="{{ route ('consent_forms.destroy-get', $consent_form->id) }}" class="btn btn-info" title="Delete submission" onclick="return confirm('Are you sure you wish to delete this submission? This cannot be undone!')"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </div>
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
