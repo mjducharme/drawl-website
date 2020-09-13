@@ -33,3 +33,4 @@ Route::get('/admin_users/{user_id}/destroy', 'AdminUserController@destroy')->nam
 Route::get('/consent_forms', 'ConsentFormController@index')->name('consent_forms.index')->middleware('auth');
 Route::get('/consent_forms/{id}','ConsentFormController@show')->name('consent_forms.show')->middleware('auth');
 Route::get('/consent_forms/{id}/destroy','ConsentFormController@destroy')->name('consent_forms.destroy-get')->middleware('auth');
+Route::get('/demographic_questionnaires/{id}/destroy','DemographicQuestionnaireController@destroy')->name('demographic_questionnaires.destroy-get')->middleware('auth');

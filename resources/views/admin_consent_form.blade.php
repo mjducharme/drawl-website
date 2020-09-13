@@ -33,7 +33,9 @@
                 <br/>
                 @foreach ($demographic_questionnaires as $demographic_questionnaire)
                     <div class="card">
-                    <div class="card-header">Questionnaire {{ $demographic_questionnaire->id }} Details</div>
+                    <div class="card-header">Questionnaire {{ $demographic_questionnaire->id }} Details
+                    <div class="float-right"><a href="{{ route ('demographic_questionnaires.destroy-get', $demographic_questionnaire->id) }}" class="btn btn-info" title="Delete this questionnaire" onclick="return confirm('Are you sure you wish to delete this questionnaire? This cannot be undone!')"><i class="fas fa-trash-alt"></i></a></div>
+                    </div>
                         <div class="card-body">
                             <table width="100%">
                                 @foreach ($demographic_questionnaire->toArray() as $key => $demo)
@@ -44,6 +46,7 @@
                             </table>
                         </div>
                     </div>
+                    <br/>
                 @endforeach
             @endif
         </div>

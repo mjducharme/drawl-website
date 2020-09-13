@@ -6,16 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\DemographicQuestionnaire;
 use Illuminate\Support\Facades\Log;
+use UA;
+use Illuminate\Support\Facades\Gate;
 
 class DemographicQuestionnaireController extends Controller
 {
     /**
      * Create a new demographic questionnaire instance so that user can submit
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('demographic_questionnaire',
-            [ 'locale' => \App::getLocale() ]);
+            [ 'locale' => \App::getLocale(), 'useragent' => UA::parse($request->header('user-agent'))]);
     }
 
     /**
@@ -48,4 +50,20 @@ class DemographicQuestionnaireController extends Controller
         $data = htmlspecialchars($data);
         return $data;
     }
+
+        // delete the demographic questionnaire
+        public function destroy($id)
+        {
+            if (Gate::allows('manage-data')) {
+                $demographic_questionnaire = app(\App\DemographicQuestionnaire::class)->find($id);
+                if (is_null($demographic_questionnaire)) {
+                    // User could not be found
+                    return back()->with('error', 'Delete failed - this demographic questionnaire could not be found!');
+                };
+                $demographic_questionnaire->delete();
+                return back()->with('status', 'Demographic questionnaire ID ' . $demographic_questionnaire->id . ' has been successfully deleted!');
+            }
+    
+            return redirect('admin')->with('error', 'You are not currently authorized to manage submissions!');
+        }
 }

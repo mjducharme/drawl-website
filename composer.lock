@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb80a5348b418deb6b0a599f1f584847",
+    "content-hash": "5e6c9d336c8bd26dc0e74370374e3306",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -103,6 +103,62 @@
                 "math"
             ],
             "time": "2020-08-18T23:57:15+00:00"
+        },
+        {
+            "name": "composer/ca-bundle",
+            "version": "1.2.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/ca-bundle.git",
+                "reference": "8a7ecad675253e4654ea05505233285377405215"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/8a7ecad675253e4654ea05505233285377405215",
+                "reference": "8a7ecad675253e4654ea05505233285377405215",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "ext-pcre": "*",
+                "php": "^5.3.2 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || 6.5 - 8",
+                "psr/log": "^1.0",
+                "symfony/process": "^2.5 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\CaBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Lets you find a path to the system CA bundle, and includes a fallback to the Mozilla CA bundle.",
+            "keywords": [
+                "cabundle",
+                "cacert",
+                "certificate",
+                "ssl",
+                "tls"
+            ],
+            "time": "2020-08-23T12:54:47+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1364,6 +1420,42 @@
                 "psr-3"
             ],
             "time": "2020-07-23T08:41:23+00:00"
+        },
+        {
+            "name": "nebed/laravel-ua-parser",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nebed/laravel-ua-parser.git",
+                "reference": "dfd6e8e95b2f145b4401f75e73825ac2e924e032"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nebed/laravel-ua-parser/zipball/dfd6e8e95b2f145b4401f75e73825ac2e924e032",
+                "reference": "dfd6e8e95b2f145b4401f75e73825ac2e924e032",
+                "shasum": ""
+            },
+            "require": {
+                "ua-parser/uap-php": "^3.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nebed\\UserAgent\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "nebed",
+                    "email": "nebeduch@gmail.com"
+                }
+            ],
+            "description": "A UserAgent Parser package for Laravel which is based on ua-parser/uap-php",
+            "time": "2019-01-01T10:44:07+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -4024,6 +4116,65 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "ua-parser/uap-php",
+            "version": "v3.9.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ua-parser/uap-php.git",
+                "reference": "d377f6ad337c2cfb44bfdeb1b9130b783890149b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ua-parser/uap-php/zipball/d377f6ad337c2cfb44bfdeb1b9130b783890149b",
+                "reference": "d377f6ad337c2cfb44bfdeb1b9130b783890149b",
+                "shasum": ""
+            },
+            "require": {
+                "composer/ca-bundle": "^1.1",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.33",
+                "phpunit/phpunit": "^8 || ^9",
+                "symfony/console": "^3.4 || ^4.2 || ^4.3 || ^5.0",
+                "symfony/filesystem": "^3.4 || ^4.2 ||  ^4.3 || ^5.0",
+                "symfony/finder": "^3.4 || ^4.2 || ^4.3 || ^5.0",
+                "symfony/yaml": "^3.4 || ^4.2 || ^4.3 || ^5.0",
+                "vimeo/psalm": "^3.12"
+            },
+            "suggest": {
+                "symfony/console": "Required for CLI usage - ^3.4 || ^4.3 || ^5.0",
+                "symfony/filesystem": "Required for CLI usage - ^3.4 || ^4.3 || ^5.0",
+                "symfony/finder": "Required for CLI usage - ^3.4 || ^4.3 || ^5.0",
+                "symfony/yaml": "Required for CLI usage - ^3.4 || ^4.3 || ^5.0"
+            },
+            "bin": [
+                "bin/uaparser"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UAParser\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Olsen",
+                    "email": "dmolsen@gmail.com"
+                },
+                {
+                    "name": "Lars Strojny",
+                    "email": "lars@strojny.net"
+                }
+            ],
+            "description": "A multi-language port of Browserscope's user agent parser.",
+            "time": "2020-08-05T22:13:41+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

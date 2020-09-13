@@ -55,7 +55,7 @@ class ConsentFormController extends Controller
         return $data;
     }
 
-    // delete the user
+    // delete the consent form
     public function destroy($id)
     {
         if (Gate::allows('manage-data')) {
