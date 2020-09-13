@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use App\ConsentForm;
 
 class ConsentFormController extends Controller
@@ -23,11 +25,15 @@ class ConsentFormController extends Controller
     public function store(Request $request)
     {     
         // define variables and set to empty values
-        $name = $email = $code = $public = "";
+        $name = $email = $code = "";
+
+        $public = false;
           
         $name = $this->test_input($request->user_name);
         $email = $this->test_input($request->user_email);
-        $public = $this->test_input($request->share_box);
+        if ($this->test_input($request->share_box) == "on") {
+            $public = true;
+        };
         $language = \App::getLocale();
 
         $testModel = ConsentForm::create([
@@ -47,5 +53,45 @@ class ConsentFormController extends Controller
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+
+    // delete the user
+    public function destroy($id)
+    {
+        if (Gate::allows('manage-data')) {
+            $consent_form = app(\App\ConsentForm::class)->find($id);
+            if (is_null($consent_form)) {
+                // User could not be found
+                return back()->with('error', 'Delete failed - this submission could not be found!');
+            };
+            if ((app(\App\DemographicQuestionnaire::class)->where('consent_form_id',$id)->get()->count() > 0 ) || (app(\App\Recording::class)->where('consent_form_id',$id)->get()->count() > 0 ))  {
+                return back()->with('error', 'This submission cannot be deleted - submission includes questionnaire and/or recording. View the submission details and delete the recording and/or questionnaire first.');
+            }
+            $consent_form->delete();
+            return back()->with('status', 'Submission for ' . $consent_form->name . ' (ID: ' . $consent_form->id . ') has been successfully deleted!');
+        }
+
+        return redirect('admin')->with('error', 'You are not currently authorized to manage submissions!');
+    }
+
+    // show the consent form
+    public function show($id)
+    {
+        if (Gate::allows('manage-data')) {
+            $consent_form = app(\App\ConsentForm::class)->find($id);
+            if (is_null($consent_form)) {
+                // User could not be found
+                return back()->with('error', 'View failed - this submission could not be found!');
+            };
+            $demographic_questionnaires = app(\App\DemographicQuestionnaire::class)->where('consent_form_id',$id)->get();
+            $recordings = app(\App\Recording::class)->where('consent_form_id',$id)->get();
+            return view('admin_consent_form',
+            [ 'consent_form' => $consent_form,
+              'demographic_questionnaires' => $demographic_questionnaires,
+              'recordings' => $recordings ]);
+
+        }
+
+        return redirect('admin')->with('error', 'You are not currently authorized to manage submissions!');
     }
 }

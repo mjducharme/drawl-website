@@ -15,4 +15,5 @@ class ConsentForm extends Model
         'public',
         'language'
     ];
+
 }

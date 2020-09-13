@@ -132,7 +132,7 @@ class RecordingController extends Controller
         echo 'success';
 
         $testModel = Recording::create([
-            'consent_form_id' => $user,
+            'consent_form_id' => (int) $user,
             'recording_filename' => $fileName
         ]);
 

@@ -28,7 +28,7 @@ class DemographicQuestionnaireController extends Controller
 
         $questionnaire = new DemographicQuestionnaire;
 
-        $questionnaire->consent_form_id = $user;
+        $questionnaire->consent_form_id = (int) $user;
 
         // iterate through all form variables to store questionnaire data
         foreach($request->all() as $key => $value) {

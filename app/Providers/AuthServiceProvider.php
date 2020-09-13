@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\Response;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,11 +27,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('manage-users', function ($user) {
-            return $user->authorized;
+            return $user->authorized
+                  ? Response::allow()
+                  : Response::deny('You must be authorized to manage users.');
         });
 
         Gate::define('manage-data', function ($user) {
-            return $user->authorized;
+            return $user->authorized
+                  ? Response::allow()
+                  : Response::deny('You must be authorized to manage data.');
         });
 
     }

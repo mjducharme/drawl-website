@@ -25,3 +25,11 @@ Route::post('/recordings','RecordingController@store')->name('recordings.store')
 Auth::routes();
 
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/admin_users', 'AdminUserController@index')->name('admin_users.index');
+Route::get('/admin_users/{user_id}/authorize', 'AdminUserController@authorizeUser')->name('admin_users.authorize');
+Route::get('/admin_users/{user_id}/deauthorize', 'AdminUserController@deauthorizeUser')->name('admin_users.deauthorize');
+Route::get('/admin_users/{user_id}/destroy', 'AdminUserController@destroy')->name('admin_users.destroy');
+
+Route::get('/consent_forms', 'ConsentFormController@index')->name('consent_forms.index')->middleware('auth');
+Route::get('/consent_forms/{id}','ConsentFormController@show')->name('consent_forms.show')->middleware('auth');
+Route::get('/consent_forms/{id}/destroy','ConsentFormController@destroy')->name('consent_forms.destroy-get')->middleware('auth');
