@@ -27,7 +27,7 @@
                         @endforeach
                     </table>
                     @else
-                    There have been no new submissions
+                    There are no submissions in the database.
                     <br/>
                     @endif
                     <br/>

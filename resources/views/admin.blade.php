@@ -43,7 +43,7 @@
                     There are no users awaiting authorization.
                     @endif
                     <br/><br/>
-                <a href="{{ route('admin_users.index') }}">Go to User Management page</a>
+                <a href="{{ route('admin_users.index') }}">Go to the User Management page</a>
                 </div>
             </div>
             @endif
@@ -64,7 +64,7 @@
                     <br/>
                     @endif
                     <br/>
-                <a href="{{ route('consent_forms.index') }}">View all submissions</a>
+                <a href="{{ route('consent_forms.index') }}">View all Submissions</a>
                 </div>
             </div>
             @endif
