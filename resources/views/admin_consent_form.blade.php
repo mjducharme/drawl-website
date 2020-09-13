@@ -31,19 +31,20 @@
                     </div>
                 </div>
                 <br/>
-                <div class="card">
-                    <div class="card-header">Questionnaire Details</div>
-                    <div class="card-body">
-                        @foreach ($demographic_questionnaires as $demographic_questionnaire)
+                @foreach ($demographic_questionnaires as $demographic_questionnaire)
+                    <div class="card">
+                    <div class="card-header">Questionnaire {{ $demographic_questionnaire->id }} Details</div>
+                        <div class="card-body">
                             <table width="100%">
-                                <tr><td>{{ json_encode($demographic_questionnaire) }}</td></tr>
-                                @foreach ($demographic_questionnaire as $key => $demo)
+                                @foreach ($demographic_questionnaire->toArray() as $key => $demo)
+                                    @if ($key != "id" && $key != "consent_form_id" && $key != "updated_at" && $key != "created_at")
                                     <tr><th>{{ $key }}</th><td>{{ $demo }}</td></tr>
+                                    @endif
                                 @endforeach
                             </table>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
+                @endforeach
             @endif
         </div>
     </div>
