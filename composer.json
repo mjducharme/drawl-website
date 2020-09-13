@@ -15,6 +15,7 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
+        "maatwebsite/excel": "^3.1",
         "mjducharme/laravel-model-json-storage": "master-dev",
         "nebed/laravel-ua-parser": "^1.0"
     },

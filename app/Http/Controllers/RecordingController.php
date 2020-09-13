@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use App\Recording;
 
 class RecordingController extends Controller
@@ -150,6 +152,23 @@ class RecordingController extends Controller
         $data = htmlspecialchars($data);
         return $data;
     }
+
+        // delete the recording
+        public function destroy($id)
+        {
+            if (Gate::allows('manage-data')) {
+                $recording = app(\App\Recording::class)->find($id);
+                if (is_null($recording)) {
+                    // Recording could not be found
+                    return back()->with('error', 'Delete failed - this recording could not be found!');
+                };
+                Storage::delete('audio/' . $recording->recording_filename);
+                $recording->delete();
+                return back()->with('status', 'Recording ID ' . $recording->id . ' has been successfully deleted!');
+            }
+    
+            return redirect('admin')->with('error', 'You are not currently authorized to manage submissions!');
+        }
 
     /*
     function return_bytes($val) {

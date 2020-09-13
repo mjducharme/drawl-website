@@ -6,10 +6,11 @@
         <div class="col-md-8">
             @if (Auth::user()->authorized && Gate::allows('manage-data'))
                 <div class="card">
-                    <div class="card-header">Consent Form Details
-                        <div class="float-right">
+                    <div class="card-header">
+                        <div class="float-left"><h2>Consent Form</h2></div>
+                        {{-- <div class="float-right">
                             <a href="{{ route ('consent_forms.destroy-get', $consent_form->id) }}" class="btn btn-info" title="Delete submission" onclick="return confirm('Are you sure you wish to delete this submission? This cannot be undone!')"><i class="fas fa-trash-alt"></i></a>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="card-body">
                         @if (session('status'))
@@ -37,7 +38,7 @@
                 <br/>
                 @foreach ($demographic_questionnaires as $demographic_questionnaire)
                     <div class="card">
-                    <div class="card-header">Questionnaire {{ $demographic_questionnaire->id }} Details
+                    <div class="card-header"><div class="float-left"><h2>Questionnaire (ID#: {{ $demographic_questionnaire->id }})</h2></div>
                     <div class="float-right"><a href="{{ route ('demographic_questionnaires.destroy-get', $demographic_questionnaire->id) }}" class="btn btn-info" title="Delete this questionnaire" onclick="return confirm('Are you sure you wish to delete this questionnaire? This cannot be undone!')"><i class="fas fa-trash-alt"></i></a></div>
                     </div>
                         <div class="card-body">
@@ -52,6 +53,31 @@
                     </div>
                     <br/>
                 @endforeach
+                <div class="card">
+                    <div class="card-header"><h1>Recordings</h1>
+                    </div>
+                        <div class="card-body">
+                            @if (!$recordings->isEmpty())
+                            <table width="100%">
+                                <tr><th>ID</th><th>Player</th><th>Actions</th></tr>
+                            @endif
+                                @forelse ($recordings as $recording)
+                                    {{-- @if ($key != "consent_form_id" && $key != "updated_at" && $key != "created_at") --}}
+                                    {{-- <tr><th>{{ $key }}</th><td>{{ $rec }}</td></tr>  --}}
+                                    <tr><td>{{ $recording->id }}</td><td><audio controls preload="metadata" style=" width:500px;">
+                                        <source src="{{ Storage::url('audio/' . $recording->recording_filename) }}" type="audio/wav">
+                                        Your browser does not support the audio element.
+                                    </audio><br /></td><td><a href="{{ Storage::url('audio/' . $recording->recording_filename) }}" class="btn btn-info" title="Download"><i class="fas fa-download"></i></a> <a href="{{ route ('recordings.destroy-get', $recording->id) }}" class="btn btn-info" title="Delete recording" onclick="return confirm('Are you sure you wish to delete this recording? This cannot be undone!')"><i class="fas fa-trash-alt"></i></a></td></tr>
+                                    {{-- @endif --}}
+                                    @empty
+                                    No recordings have been submitted under this consent form.
+                                @endforelse
+                            @if (!$recordings->isEmpty())   
+                                </table>
+                            @endif
+                        </div>
+                    </div>
+                    <br/>
             @endif
         </div>
     </div>

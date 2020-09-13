@@ -94,4 +94,28 @@ class ConsentFormController extends Controller
 
         return redirect('admin')->with('error', 'You are not currently authorized to manage submissions!');
     }
+
+    public function index()
+    {
+        $consentForms = [];
+        foreach (ConsentForm::all()->sortByDesc("created_at") as $consentForm) {
+                $consentForm->has_demographic_questionnaire = true;
+                if (app(\App\DemographicQuestionnaire::class)->where('consent_form_id',$consentForm->id)->get()->count() == 0) {
+                    $consentForm->has_demographic_questionnaire = false;
+                }
+                $consentForm->has_recording = true;
+                if (app(\App\Recording::class)->where('consent_form_id',$consentForm->id)->get()->count() == 0) {
+                    $consentForm->has_recording = false;
+                }
+                $consentForms[] = $consentForm;
+        }
+
+
+
+
+        //Log::info("Consent forms content is " . json_encode($consentForms));
+
+        return view('consent_forms_list',
+            [ 'consent_forms' => $consentForms ]);
+    }
 }

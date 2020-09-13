@@ -34,3 +34,6 @@ Route::get('/consent_forms', 'ConsentFormController@index')->name('consent_forms
 Route::get('/consent_forms/{id}','ConsentFormController@show')->name('consent_forms.show')->middleware('auth');
 Route::get('/consent_forms/{id}/destroy','ConsentFormController@destroy')->name('consent_forms.destroy-get')->middleware('auth');
 Route::get('/demographic_questionnaires/{id}/destroy','DemographicQuestionnaireController@destroy')->name('demographic_questionnaires.destroy-get')->middleware('auth');
+Route::get('/recordings/{id}/destroy','RecordingController@destroy')->name('recordings.destroy-get')->middleware('auth');
+
+Route::get('/storage/{file_name}', 'FileController')->where(['file_name' => '.*']);
