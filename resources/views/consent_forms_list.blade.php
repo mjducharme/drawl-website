@@ -31,6 +31,7 @@
                     <br/>
                     @endif
                     <br/>
+                    <a href="{{ route('consent_forms.export') }}">Export Submissions to .CSV</a> |
                     <a href="{{ route('admin') }}">Go back to the Admin Dashboard</a>
                 </div>
             </div>

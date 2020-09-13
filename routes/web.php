@@ -37,3 +37,5 @@ Route::get('/demographic_questionnaires/{id}/destroy','DemographicQuestionnaireC
 Route::get('/recordings/{id}/destroy','RecordingController@destroy')->name('recordings.destroy-get')->middleware('auth');
 
 Route::get('/storage/{file_name}', 'FileController')->where(['file_name' => '.*']);
+
+Route::get('/export/consent_forms', 'ConsentFormController@export')->name('consent_forms.export')->middleware('auth');

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use App\ConsentForm;
+use App\Exports\ConsentFormsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ConsentFormController extends Controller
 {
@@ -118,4 +120,15 @@ class ConsentFormController extends Controller
         return view('consent_forms_list',
             [ 'consent_forms' => $consentForms ]);
     }
+
+    public function export() 
+    {
+        if (Gate::allows('manage-data')) {
+            return Excel::download(new ConsentFormsExport, 'submissions.csv');
+        }
+        
+        return redirect('admin')->with('error', 'You are not currently authorized to manage submissions!');
+    }
+
+    
 }
