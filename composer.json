@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": "^8.1",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.2",
+        "laravel/ui": "^3.0",
         "maatwebsite/excel": "^3.1",
         "mjducharme/laravel-model-json-storage": "master-dev",
         "nebed/laravel-ua-parser": "^1.0"
