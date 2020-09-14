@@ -24,6 +24,7 @@ var rafID = null;
 var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
+var encoding = 'wav';
 var tempblob;
 var blocksubmit = 1;
 
@@ -33,11 +34,12 @@ var blocksubmit = 1;
 - "Monitor input" switch
 */
 
+/*
 function saveAudio() {
     audioRecorder.exportWAV( doneEncoding );
     // could get mono instead by saying
     // audioRecorder.exportMonoWAV( doneEncoding );
-}
+} */
 
 function gotBuffers( buffers ) {
     var canvas = document.getElementById( "wavedisplay" );
@@ -46,15 +48,23 @@ function gotBuffers( buffers ) {
 
     // the ONLY time gotBuffers is called is right after a new recording is completed - 
     // so here's where we should set up the download.
-    audioRecorder.exportWAV( doneEncoding );
+    if(encoding === 'mp3') {
+        console.log('Encoding as MP3');
+        audioRecorder.exportMP3( doneEncoding );
+      } else {
+        console.log('Encoding as WAV');
+        audioRecorder.exportWAV( doneEncoding );
+      }
 }
 
 function doneEncoding( blob ) {
     // Recorder.setupDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
     tempblob = blob;
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    console.log('URL is' + url);
     var playbar = document.getElementById('recorded-audio');
     playbar.src = url;
+    console.log('Have set playbar src to ' + url);
     var submitbutton = document.getElementById('save');
     submitbutton.style.opacity="1";
     blocksubmit = 0;
@@ -66,7 +76,7 @@ function doneEncoding( blob ) {
 
 function startSubmit() {
     if (blocksubmit == 0) {
-    Recorder.setupPhpPost( tempblob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav", function(progress) {
+    Recorder.setupPhpPost( tempblob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + "." + encoding, function(progress) {
     var progresstext = document.getElementById('progresstext');
     if (progress === 'ended') {
         progresstext.innerHTML = 'Upload Successful!';
