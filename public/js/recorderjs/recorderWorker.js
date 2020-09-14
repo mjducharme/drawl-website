@@ -17,7 +17,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 DEALINGS IN THE SOFTWARE.
 */
 
-importScripts("Mp3LameEncoder.min.js");
+importScripts("../lame.min.js");
 
 var recLength = 0,
   recBuffersL = [],
@@ -180,14 +180,34 @@ function encodeWAV(samples, mono){
 }
 
 function encodeMP3(left, right){
+
+  var mp3Data = [];
+
   var buffer = new ArrayBuffer(left.length * 2);
   var view = new DataView(buffer);
 
-  encoder = new Mp3LameEncoder(sampleRate, 320);
-  encoder.encode([left, right]);
+  encoder = new lamejs.Mp3Encoder(2, sampleRate, 320);
+  var mp3Tmp = encoder.encodeBuffer(left, right);
 
-  blob = encoder.finish("audio/mpeg");
+  //Push encode buffer to mp3Data variable
+  mp3Data.push(mp3Tmp);
 
-  return blob;
+  // Get end part of mp3
+  mp3Tmp = encoder.flush();
+
+  
+  // Write last data to the output data, too
+  // mp3Data contains now the complete mp3Data
+  mp3Data.push(mp3Tmp);
+
+  console.debug(mp3Data);
+
+
+  //encoder = new Mp3LameEncoder(sampleRate, 320);
+  // encoder.encode([left, right]);
+
+  // blob = encoder.finish("audio/mpeg");
+
+  return mp3Data;
 }
 
