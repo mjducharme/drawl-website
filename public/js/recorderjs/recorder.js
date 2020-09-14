@@ -78,6 +78,7 @@ DEALINGS IN THE SOFTWARE.
     }
 
     this.exportWAV = function(cb, type){
+      console.log('calling exportWAV')
       currCallback = cb || config.callback;
       type = type || config.type || 'audio/wav';
       if (!currCallback) throw new Error('Callback not set');
@@ -88,6 +89,7 @@ DEALINGS IN THE SOFTWARE.
     }
   
     this.exportMP3 = function(cb, type) {
+      console.log('calling exportMP3')
       currCallback = cb || config.callback;
       type = type || config.type || 'audio/mpeg';
       if (!currCallback) throw new Error('Callback not set');
