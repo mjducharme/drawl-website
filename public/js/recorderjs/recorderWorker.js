@@ -179,28 +179,43 @@ function encodeWAV(samples, mono){
   return view;
 }
 
-function encodeMP3(left, right){
+function encodeMP3(lefti, righti){
 
+  console.log('recorderWorker encodeMP3');
+  mp3encoder = new lamejs.Mp3Encoder(2, sampleRate, 320);
   var mp3Data = [];
 
-  var buffer = new ArrayBuffer(left.length * 2);
-  var view = new DataView(buffer);
-
-  encoder = new lamejs.Mp3Encoder(2, sampleRate, 320);
-  var mp3Tmp = encoder.encodeBuffer(left, right);
+  left = new Int16Array(44100); //one second of silence (get your data from the source you have)
+  right = new Int16Array(44100); //one second of silence (get your data from the source you have)
+  //var buffer = new ArrayBuffer(left.length * 2);
+  //var view = new DataView(buffer);
+  sampleBlockSize = 1152;
+  
+  //var mp3Tmp = encoder.encodeBuffer(left, right);
 
   //Push encode buffer to mp3Data variable
-  mp3Data.push(mp3Tmp);
+  //mp3Data.push(mp3Tmp);
+
+  for (var i = 0; i < left.length; i += sampleBlockSize) {
+    leftChunk = left.subarray(i, i + sampleBlockSize);
+    rightChunk = right.subarray(i, i + sampleBlockSize);
+    var mp3buf = mp3encoder.encodeBuffer(leftChunk, rightChunk);
+    if (mp3buf.length > 0) {
+      mp3Data.push(mp3buf);
+    }
+  }
 
   // Get end part of mp3
-  mp3Tmp = encoder.flush();
+  var mp3buf = mp3encoder.flush();   //finish writing mp3
 
   
   // Write last data to the output data, too
   // mp3Data contains now the complete mp3Data
-  mp3Data.push(mp3Tmp);
+  if (mp3buf.length > 0) {
+    mp3Data.push(mp3buf);
+  }
 
-  console.debug(mp3Data);
+  //console.debug(mp3Data);
 
 
   //encoder = new Mp3LameEncoder(sampleRate, 320);

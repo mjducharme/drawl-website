@@ -172,7 +172,7 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 	<div id="viz">
 		<canvas id="analyser" width="1000" height="150"></canvas>
 		<canvas id="wavedisplay" width="1000" height="150"></canvas>
-                <audio id="recorded-audio" controls="controls"></audio>
+        <audio id="recorded-audio" controls="controls" style="width:315px;"></audio>
 	</div>
 	<div id="controls">
 		<div id="buttons">

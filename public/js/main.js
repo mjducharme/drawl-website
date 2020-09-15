@@ -72,6 +72,7 @@ function doneEncoding( blob ) {
     // $("audio#recorded-audio").get()[0].load();
     // Recorder.setupPhpPost( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
     recIndex++;
+    console.log('doneEncoding finished');
 }
 
 function startSubmit() {
