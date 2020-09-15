@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "lamejs": "^1.2.0"
+        "lamejs": "^1.2.0",
+        "node-forge": "^0.10.0"
     }
 }
