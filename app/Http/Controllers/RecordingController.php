@@ -34,29 +34,29 @@ class RecordingController extends Controller
         // define variables and set to empty values
         $user = $this->test_input($request->session()->get('user_id'));
 
-        if (!isset($_POST['audio-filename']) && !isset($_POST['video-filename'])) {
-            error_log ('Empty file name');
+        if (!isset($request['audio-filename']) && !isset($request['video-filename'])) {
+            Log::Error('Empty file name');
             echo 'Empty file name.';
             return;
         }
     
         // do NOT allow empty file names
-        if (empty($_POST['audio-filename']) && empty($_POST['video-filename'])) {
-            error_log ('Empty file name');
+        if (empty($request['audio-filename']) && empty($request['video-filename'])) {
+            Log::Error('Empty file name');
             echo 'Empty file name.';
             return;
         }
     
         // do NOT allow third party audio uploads
-        if (isset($_POST['audio-filename']) && strrpos($_POST['audio-filename'], "RecordRTC-") !== 0) {
-            error_log ('Audio File name must start with RecordRTC-, filename is '.$_POST['audio-filename']);
+        if (isset($request['audio-filename']) && strrpos($request['audio-filename'], "RecordRTC-") !== 0) {
+            Log::Error('Audio File name must start with RecordRTC-, filename is '.$request['audio-filename']);
             echo 'File name must start with "RecordRTC-"';
             return;
         }
     
         // do NOT allow third party video uploads
-        if (isset($_POST['video-filename']) && strrpos($_POST['video-filename'], "RecordRTC-") !== 0) {
-            error_log ('Video File name must start with RecordRTC-');
+        if (isset($request['video-filename']) && strrpos($request['video-filename'], "RecordRTC-") !== 0) {
+            Log::Error('Video File name must start with RecordRTC-');
             echo 'File name must start with "RecordRTC-"';
             return;
         }
@@ -67,21 +67,21 @@ class RecordingController extends Controller
         
         if (!empty($_FILES['audio-blob'])) {
             $file_idx = 'audio-blob';
-            $fileName = $_POST['audio-filename'];
+            $fileName = $request['audio-filename'];
             $tempName = $_FILES[$file_idx]['tmp_name'];
         } else {
             $file_idx = 'video-blob';
-            $fileName = $_POST['video-filename'];
+            $fileName = $request['video-filename'];
             $tempName = $_FILES[$file_idx]['tmp_name'];
         }
         
         if (empty($fileName) || empty($tempName)) {
             if(empty($tempName)) {
-                error_log ('Invalid temp_name: '.$tempName);
+                Log::Error('Invalid temp_name: '.$tempName);
                 echo 'Invalid temp_name: '.$tempName;
                 return;
             }
-            error_log('Invalid file name: '.$fileName);
+            Log::Error('Invalid file name: '.$fileName);
             echo 'Invalid file name: '.$fileName;
             return;
         }
@@ -120,13 +120,13 @@ class RecordingController extends Controller
         );
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$extension || empty($extension) || !in_array($extension, $allowed)) {
-            error_log('Invalid file extension: '.$extension);
+            Log::Error('Invalid file extension: '.$extension);
             echo 'Invalid file extension: '.$extension;
             return;
         }
     
         if (!move_uploaded_file($tempName, $filePath)) {
-            error_log('Problem saving file: '.$tempName.','.$filePath);
+            Log::Error('Problem saving file: '.$tempName.','.$filePath);
             echo 'Problem saving file: '.$tempName;
             return;
         }

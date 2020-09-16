@@ -25,6 +25,7 @@ var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
 var encoding = 'mp3';
+// var encoding = 'wav';
 var tempblob;
 var blocksubmit = 1;
 
