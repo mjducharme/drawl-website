@@ -32,6 +32,22 @@
 	<script src="{{ asset('js/recorderjs/recorder.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
 
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$("#loading-div-background").css({ opacity: 1.0 });
+		});
+	
+		function ShowProgressAnimation(message){
+			var progresstext = document.getElementById('progresstext');
+			progresstext.innerHTML = message;
+			$("#loading-div-background").show();
+		}
+
+		function EndProgressAnimation(){
+			$("#loading-div-background").hide();
+		}
+	</script>
+
 
 <style>
 	html { overflow: scroll; }
@@ -60,6 +76,7 @@
 		width: 100%;
 		min-height: 160px;
 	}
+
 	#buttons {
 		display: flex;
 		flex-direction: row;
@@ -69,7 +86,8 @@
 		width: 100%;
 		justify-content: space-around;
 	}
-	#progresstext {
+
+	#recwarning {
 		padding: 10px 0px;
 		text-align: center;
 		margins: auto;
@@ -82,6 +100,45 @@
 		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
 		background: -moz-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
 		background: radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
+	}
+
+	#loading-div-background{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+}
+
+#loading-div{
+    width: 300px;
+    background-color: #fff;
+    border: 5px solid #1468b3;
+    text-align: center;
+    color: #202020;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url("/css/pie/PIE.htc"); /* HANDLES IE */
+}
+
+#progresstext {
+		padding: 10px 0px;
+		text-align: center;
+		margins: auto;
+	}
+
+	#progressimg {
+		height:32px;
+		width:32px;
+		margin:30px;
 	}
 
 
@@ -123,6 +180,11 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 </style>
 </head>
 <body>
+	<div id="loading-div-background">
+		<div id="loading-div" class="ui-corner-all">
+		  <div id="progressimage"><img id="progressimg" src="/images/please_wait.gif" alt="Loading.."/><br/></div><div id="progresstext">Encoding Audio. Please wait...</div>
+		</div>
+	  </div>
 	<div class="column-container">
 	<div class="first-column">
 
@@ -181,7 +243,7 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 		<h4 id="rectime"><time>00:00:00</time></h4>
 		</div>
 
-		<div id="progresstext"><div style="color: red;">@lang('messages.RecorderNotYet')</div></div>
+		<div id="recwarning"><div style="color: red;">@lang('messages.RecorderNotYet')</div></div>
 	</div>
 	</div>
 	</div>

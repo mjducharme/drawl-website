@@ -72,15 +72,24 @@ function doneEncoding( blob ) {
     // $("audio#recorded-audio").get()[0].load();
     // Recorder.setupPhpPost( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
     recIndex++;
+    EndProgressAnimation();
     console.log('doneEncoding finished');
 }
 
 function startSubmit() {
     if (blocksubmit == 0) {
+    if (confirm('Are you sure you wish to submit this recording?') == false) {
+        return false;
+    }
+    ShowProgressAnimation("Beginning recording submission process...");
     Recorder.setupPhpPost( tempblob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + "." + encoding, function(progress) {
     var progresstext = document.getElementById('progresstext');
     if (progress === 'ended') {
-        progresstext.innerHTML = 'Upload Successful!';
+        var progressimage = document.getElementById('progressimage');
+        progresstext.innerHTML = 'Upload Successful!<br/><br/>Thank you for participating! You may now close this window.';
+        var progresstext = document.getElementById('recwarning');
+        recwarning.innerHTML = '';
+        progressimage.innerHTML = '<img id="progressimg" src="/images/success.gif" alt="Success!"/>'
         return;
     }
     progresstext.innerHTML = progress;
@@ -96,6 +105,7 @@ function toggleRecording( e ) {
         audioRecorder.stop();
         e.classList.remove("recording");
         audioRecorder.getBuffers( gotBuffers );
+        ShowProgressAnimation("Please wait while encoding audio. This may take a minute...");
     } else {
         if (audioContext.state === 'suspended') {
              audioContext.resume();
