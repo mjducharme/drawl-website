@@ -65,7 +65,7 @@ class RecordingController extends Controller
         $tempName = '';
         $file_idx = '';
         
-        if (!empty($_FILES['audio-blob'])) {
+        if (!empty($request->file('audio-blob'))) {
             $file_idx = 'audio-blob';
             $fileName = $request['audio-filename'];
             $tempName = $_FILES[$file_idx]['tmp_name'];
