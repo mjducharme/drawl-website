@@ -25,7 +25,7 @@ var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
 var encoding = 'wav';
-// var encoding = 'mp3';
+//var encoding = 'mp3';
 var tempblob;
 var blocksubmit = 1;
 
@@ -85,12 +85,19 @@ function startSubmit() {
     ShowProgressAnimation("Beginning recording submission process...");
     Recorder.setupPhpPost( tempblob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + "." + encoding, function(progress) {
     var progresstext = document.getElementById('progresstext');
-    if (progress === 'ended') {
+    if (progress.startsWith('Error: ')) {
+        var progressimage = document.getElementById('progressimage');
+        progresstext.innerHTML = progress;
+        progressimage.innerHTML = '<img id="progressimg" src="/images/error.png" alt="Error!"/>'
+        return;
+    } else if (progress === 'ended') {
         var progressimage = document.getElementById('progressimage');
         progresstext.innerHTML = 'Upload Successful!<br/><br/>Thank you for participating! You may now close this window.';
         var progresstext = document.getElementById('recwarning');
         recwarning.innerHTML = '';
         progressimage.innerHTML = '<img id="progressimg" src="/images/success.gif" alt="Success!"/>'
+        /* var savebutton = document.getElementById("save");
+        savebutton.style.opacity="0"; */
         return;
     }
     progresstext.innerHTML = progress;

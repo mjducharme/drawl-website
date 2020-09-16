@@ -36,29 +36,25 @@ class RecordingController extends Controller
 
         if (!isset($request['audio-filename']) && !isset($request['video-filename'])) {
             Log::Error('Empty file name');
-            echo 'Empty file name.';
-            return;
+            return response('Empty file name.', 400);
         }
     
         // do NOT allow empty file names
         if (empty($request['audio-filename']) && empty($request['video-filename'])) {
             Log::Error('Empty file name');
-            echo 'Empty file name.';
-            return;
+            return response('Empty file name.', 400);
         }
     
         // do NOT allow third party audio uploads
         if (isset($request['audio-filename']) && strrpos($request['audio-filename'], "RecordRTC-") !== 0) {
             Log::Error('Audio File name must start with RecordRTC-, filename is '.$request['audio-filename']);
-            echo 'File name must start with "RecordRTC-"';
-            return;
+            return response('File name must start with "RecordRTC-"', 400);
         }
     
         // do NOT allow third party video uploads
         if (isset($request['video-filename']) && strrpos($request['video-filename'], "RecordRTC-") !== 0) {
             Log::Error('Video File name must start with RecordRTC-');
-            echo 'File name must start with "RecordRTC-"';
-            return;
+            return response('File name must start with "RecordRTC-"', 400);
         }
         
         $fileName = '';
@@ -74,16 +70,36 @@ class RecordingController extends Controller
             $fileName = $request['video-filename'];
             $tempName = $_FILES[$file_idx]['tmp_name'];
         }
+
+        if(!empty($_FILES[$file_idx]["error"]) && ($_FILES[$file_idx]["error"] != 0)) {
+            $listOfErrors = array(
+                '1' => 'The uploaded file exceeds the upload_max_filesize directive in php.ini.',
+                '2' => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.',
+                '3' => 'The uploaded file was only partially uploaded.',
+                '4' => 'No file was uploaded.',
+                '6' => 'Missing a temporary folder. Introduced in PHP 5.0.3.',
+                '7' => 'Failed to write file to disk. Introduced in PHP 5.1.0.',
+                '8' => 'A PHP extension stopped the file upload. PHP does not provide a way to ascertain which extension caused the file upload to stop; examining the list of loaded extensions with phpinfo() may help.'
+            );
+            $error = $_FILES[$file_idx]["error"];
+
+            if(!empty($listOfErrors[$error])) {
+                Log::Error($listOfErrors[$error]);
+                return response($listOfErrors[$error], 400);
+            }
+            else {
+                Log::Error('Not uploaded because of error #'.$_FILES["$file_idx"]["error"]);
+                return response('Not uploaded because of error #'.$_FILES["$file_idx"]["error"], 400);
+            }
+        }
         
         if (empty($fileName) || empty($tempName)) {
             if(empty($tempName)) {
                 Log::Error('Invalid temp_name: '.$tempName);
-                echo 'Invalid temp_name: '.$tempName;
-                return;
+                return response('Invalid temp_name: '.$tempName, 400);
             }
             Log::Error('Invalid file name: '.$fileName);
-            echo 'Invalid file name: '.$fileName;
-            return;
+            return response('Invalid file name: '.$fileName, 400);
         }
     
         /*
@@ -121,14 +137,12 @@ class RecordingController extends Controller
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
         if (!$extension || empty($extension) || !in_array($extension, $allowed)) {
             Log::Error('Invalid file extension: '.$extension);
-            echo 'Invalid file extension: '.$extension;
-            return;
+            return response('Invalid file extension: '.$extension, 400);
         }
     
         if (!move_uploaded_file($tempName, $filePath)) {
             Log::Error('Problem saving file: '.$tempName.','.$filePath);
-            echo 'Problem saving file: '.$tempName;
-            return;
+            return response('Problem saving file: '.$tempName.','.$filePath, 400);
         }
         
         echo 'success';

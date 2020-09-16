@@ -127,8 +127,10 @@ DEALINGS IN THE SOFTWARE.
                             return;
                         }
 
-                        document.querySelector('.header').parentNode.style = 'text-align: left; color: red; padding: 5px 10px;';
-                        document.querySelector('.header').parentNode.innerHTML = request.responseText;
+                        /* document.querySelector('.header').parentNode.style = 'text-align: left; color: red; padding: 5px 10px;';
+                        document.querySelector('.header').parentNode.innerHTML = request.responseText; */
+                    } else if (request.readyState == 4 && request.status == 400) {
+                      callback('Error: ' + request.responseText);
                     }
                 };
 
@@ -140,9 +142,9 @@ DEALINGS IN THE SOFTWARE.
                     callback('Upload Progress ' + Math.round(event.loaded / event.total * 100) + "%");
                 };
 
-                request.upload.onload = function() {
+                /* request.upload.onload = function() {
                     callback('progress-about-to-end');
-                };
+                }; */
 
                 request.upload.onload = function() {
                     callback('Getting File URL..');
@@ -173,8 +175,9 @@ DEALINGS IN THE SOFTWARE.
   Recorder.setupPhpPost  = function(blob, filename, callback){
     var d = new Date();
     var fileext = ".wav";
-    if (blob.type = "audio/mpeg") {
-      fileext = ".mp3"
+    if (blob.type == "audio/mpeg") {
+      console.log("File is mp3");
+      fileext = ".mp3";
     }
     var filename = (d.getTime()).toString() + fileext;
     console.log('Setting up Php Post');
@@ -196,8 +199,6 @@ DEALINGS IN THE SOFTWARE.
     // request.open('POST', '/save.php');
     // request.send(formData);
     console.log('PHP post submitted');
-    var savebutton = document.getElementById("save");
-    savebutton.style.opacity="0.25";
     // var url = (window.URL || window.webkitURL).createObjectURL(blob);
     // var link = document.getElementById("save");
     // link.href = url;
