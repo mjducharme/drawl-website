@@ -172,7 +172,11 @@ DEALINGS IN THE SOFTWARE.
 
   Recorder.setupPhpPost  = function(blob, filename, callback){
     var d = new Date();
-    var filename = (d.getTime()).toString() + ".wav";
+    var fileext = ".wav";
+    if (blob.type = "audio/mpeg") {
+      fileext = ".mp3"
+    }
+    var filename = (d.getTime()).toString() + fileext;
     console.log('Setting up Php Post');
     filename = "RecordRTC-" + user_id + "-" + filename;
     var formData = new FormData();

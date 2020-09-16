@@ -24,7 +24,7 @@ var rafID = null;
 var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
-var encoding = 'wav';
+var encoding = 'mp3';
 var tempblob;
 var blocksubmit = 1;
 

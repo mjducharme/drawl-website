@@ -76,8 +76,8 @@ function exportMP3(type){
   var bufferL = mergeBuffers(recBuffersL, recLength);
   var bufferR = mergeBuffers(recBuffersR, recLength);
 
-  var dataview = encodeMP3(bufferL, bufferR);
-  var audioBlob = new Blob([dataview], { type: type });
+  var dataview = encodeMP3(FloatArray2Int16(bufferL), FloatArray2Int16(bufferR));
+  var audioBlob = new Blob(dataview, { type: type });
 
   console.log('recorderWorker exportMP3');
 
@@ -179,14 +179,26 @@ function encodeWAV(samples, mono){
   return view;
 }
 
-function encodeMP3(lefti, righti){
+function FloatArray2Int16 (floatbuffer) {
+  var int16Buffer = new Int16Array(floatbuffer.length);
+  for (var i = 0, len = floatbuffer.length; i < len; i++) {
+      if (floatbuffer[i] < 0) {
+          int16Buffer[i] = 0x8000 * floatbuffer[i];
+      } else {
+          int16Buffer[i] = 0x7FFF * floatbuffer[i];
+      }
+  }
+  return int16Buffer;
+}
+
+function encodeMP3(left, right){
 
   console.log('recorderWorker encodeMP3');
   mp3encoder = new lamejs.Mp3Encoder(2, sampleRate, 320);
   var mp3Data = [];
 
-  left = new Int16Array(44100); //one second of silence (get your data from the source you have)
-  right = new Int16Array(44100); //one second of silence (get your data from the source you have)
+  //left = new Int16Array(44100); //one second of silence (get your data from the source you have)
+  //right = new Int16Array(44100); //one second of silence (get your data from the source you have)
   //var buffer = new ArrayBuffer(left.length * 2);
   //var view = new DataView(buffer);
   sampleBlockSize = 1152;
@@ -195,6 +207,8 @@ function encodeMP3(lefti, righti){
 
   //Push encode buffer to mp3Data variable
   //mp3Data.push(mp3Tmp);
+
+  console.debug('Left is ' + left);
 
   for (var i = 0; i < left.length; i += sampleBlockSize) {
     leftChunk = left.subarray(i, i + sampleBlockSize);
@@ -215,13 +229,16 @@ function encodeMP3(lefti, righti){
     mp3Data.push(mp3buf);
   }
 
-  //console.debug(mp3Data);
+  console.debug(mp3Data);
 
 
   //encoder = new Mp3LameEncoder(sampleRate, 320);
   // encoder.encode([left, right]);
 
   // blob = encoder.finish("audio/mpeg");
+
+  //Consolidate the collection of MP3 buffers into a single data Blob.
+  //var blob= new Blob(mp3Data,{type: 'audio/mp3'});
 
   return mp3Data;
 }
