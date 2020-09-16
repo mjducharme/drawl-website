@@ -208,7 +208,7 @@ function encodeMP3(left, right){
   //Push encode buffer to mp3Data variable
   //mp3Data.push(mp3Tmp);
 
-  console.debug('Left is ' + left);
+  //console.debug('Left is ' + left);
 
   for (var i = 0; i < left.length; i += sampleBlockSize) {
     leftChunk = left.subarray(i, i + sampleBlockSize);
@@ -229,7 +229,7 @@ function encodeMP3(left, right){
     mp3Data.push(mp3buf);
   }
 
-  console.debug(mp3Data);
+  //console.debug(mp3Data);
 
 
   //encoder = new Mp3LameEncoder(sampleRate, 320);
