@@ -142,15 +142,6 @@
 		margin:30px;
 	}
 
-
-.column-container {display: flex; width: 100%; height: 100%; flex-direction: row; overflow: auto;}
-.second-column { display:flex; flex-direction: column; overflow: auto; }
-.first-column { flex: 1 1; border: none; margin: 0; padding: 0; overflow: auto; min-width: 375px;}
-.container { overflow:overlay; max-height: 85%; width:100%;}
-.btntext {max-width: 100px;}
-
-	// #save, #save img { height: 10vh; }
-
 	#save { opacity: 0.25;}
 	#save[download] { opacity: 1;}
 	#viz {
@@ -163,6 +154,16 @@
 		justify-content: space-around;
 		align-items: center;
 	}
+
+.column-container {display: flex; width: 100%; height: 100%; flex-direction: row; overflow: auto;}
+.second-column { display:flex; flex-direction: column; overflow: auto; }
+.first-column { flex: 1 1; border: none; margin: 0; padding: 0; overflow: auto; min-width: 375px;}
+.container { overflow:overlay; max-height: 85%; width:100%;}
+.btntext {max-width: 100px;}
+
+	// #save, #save img { height: 10vh; }
+
+
 	@media (orientation: portrait) {
 		.column-container { flex-direction: column; width: 100%; height: 100%;}
 		.first-column { width: 100%; max-height: 55%; overflow: auto;}
@@ -173,6 +174,7 @@
 		// #controls { flex-direction: column; height: 100%; width: 100%;}
 		// #viz { height: 100%; width: 100%;}
 	}
+
 object{  width: 100%;  height: 60%; font-family: arial, sans-serif;}
 table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;}
 
@@ -181,74 +183,87 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 </style>
 </head>
 <body>
-	<div id="loading-div-background">
-		<div id="loading-div" class="ui-corner-all">
-		  <div id="progressimage"><img id="progressimg" src="/images/please_wait.gif" alt="Loading.."/><br/></div><div id="progresstext">Encoding Audio. Please wait...</div>
-		</div>
-	  </div>
-	<div class="column-container">
-	<div class="first-column">
-
-	<nav class="navbar navbar-primary bg-primary">
-        <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.RecorderTitle')</span>
-    </nav>
-		<div class="container">
-  <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">@lang('messages.RecorderInstructionsTitle')</a>
-        </h4>
-      </div>
-      <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">@include('includes.'.$locale.".recorder_instructions")</div>
-      </div>
+    <div id="loading-div-background">
+        <div id="loading-div" class="ui-corner-all">
+            <div id="progressimage"><img id="progressimg" src="/images/please_wait.gif" alt="Loading.." /><br /></div>
+            <div id="progresstext">Encoding Audio. Please wait...</div>
+        </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">@lang('messages.RecorderReadingTitle')</a>
-        </h4>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse">
-        <div class="panel-body">@include('includes.'.$locale.".reading_passage")</div>
-      </div>
-	</div>
-	
-	{{-- 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">@lang('messages.RecorderSpontaneous')</a>
-        </h4>
-      </div>
-      <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body">@include('includes.'.$locale.".spontaneous_prompts")</div>
-      </div>
-	</div>
-	--}}
-  </div> 
-</div>
-	</div>
+    <div class="column-container">
+        <div class="first-column">
 
-	<div class="second-column">
-	<div id="viz">
-		<div id="my-peak-meter" style="width: 5em; height: 20em; margin: 1em 0;"></div>
-		<canvas id="analyser" width="1000" height="150"></canvas>
-		<canvas id="wavedisplay" width="1000" height="150"></canvas>
-        <audio id="recorded-audio" controls="controls" style="width:315px;"></audio>
-	</div>
-	<div id="controls">
-		<div id="buttons">
-		<div id="record-div" class="btntext"><a href="#" title="Click to start or stop recording" onclick="toggleRecording(document.getElementById('record'));"><img id="record" src="{{ asset('images/mic128.png') }}" width="70" height="70"><br/><div id="rectext">@lang('messages.RecorderRec')</div></a></div>
-		<div id="save-div" class="btntext"><a id="save" href="#" onclick="startSubmit(this);"><img src="{{ asset('images/save.svg') }}" width="70" height="70"><br/>@lang('messages.RecorderSave')</a></div>
-		<h4 id="rectime"><time>00:00:00</time></h4>
-		</div>
+            <nav class="navbar navbar-primary bg-primary">
+                <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle') &nbsp;>&nbsp;
+                    @lang('messages.RecorderTitle')</span>
+            </nav>
+            <div class="container">
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse1">@lang('messages.RecorderInstructionsTitle')</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in">
+                            <div class="panel-body">@include('includes.'.$locale.".recorder_instructions")</div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse2">@lang('messages.RecorderReadingTitle')</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse">
+                            <div class="panel-body">@include('includes.'.$locale.".reading_passage")</div>
+                        </div>
+                    </div>
+					{{--
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                    href="#collapse3">@lang('messages.RecorderSpontaneous')</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse">
+                            <div class="panel-body">@include('includes.'.$locale.".spontaneous_prompts")</div>
+                        </div>
+					</div>
+					--}}
 
-		<div id="recwarning"><div style="color: red;">@lang('messages.RecorderNotYet')</div></div>
-	</div>
-	</div>
-	</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="second-column">
+            <div id="viz">
+                <div id="my-peak-meter" style="width: 5em; height: 20em; margin: 1em 0;"></div>
+                <canvas id="analyser" width="1000" height="150"></canvas>
+                <canvas id="wavedisplay" width="1000" height="150"></canvas>
+                <audio id="recorded-audio" controls="controls" style="width:315px;"></audio>
+            </div>
+            <div id="controls">
+                <div id="buttons">
+                    <div id="record-div" class="btntext"><a href="#" title="Click to start or stop recording"
+                            onclick="toggleRecording(document.getElementById('record'));"><img id="record"
+                                src="{{ asset('images/mic128.png') }}" width="70" height="70"><br />
+                            <div id="rectext">@lang('messages.RecorderRec')</div>
+                        </a></div>
+                    <div id="save-div" class="btntext"><a id="save" href="#" onclick="startSubmit(this);"><img
+                                src="{{ asset('images/save.svg') }}" width="70"
+                                height="70"><br />@lang('messages.RecorderSave')</a></div>
+                    <h4 id="rectime"><time>00:00:00</time></h4>
+                </div>
+
+                <div id="recwarning">
+                    <div style="color: red;">@lang('messages.RecorderNotYet')</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
