@@ -31,6 +31,7 @@
 	<script src="{{ asset('js/audiodisplay.js') }}"></script>
 	<script src="{{ asset('js/recorderjs/recorder.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('js/web-audio-peak-meter.min.js') }}"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function (){
@@ -232,6 +233,7 @@ table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100
 
 	<div class="second-column">
 	<div id="viz">
+		<div id="my-peak-meter" style="width: 5em; height: 20em; margin: 1em 0;"></div>
 		<canvas id="analyser" width="1000" height="150"></canvas>
 		<canvas id="wavedisplay" width="1000" height="150"></canvas>
         <audio id="recorded-audio" controls="controls" style="width:315px;"></audio>

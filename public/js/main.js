@@ -215,6 +215,10 @@ function gotStream(stream) {
     inputPoint.connect( zeroGain );
     zeroGain.connect( audioContext.destination );
     updateAnalysers();
+    var myMeterElement = document.getElementById('my-peak-meter');
+    var meterNode = webAudioPeakMeter.createMeterNode(realAudioInput, audioContext);
+    webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
+
 }
 
 function initAudio() {
