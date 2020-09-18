@@ -126,28 +126,28 @@ DEALINGS IN THE SOFTWARE.
                             return;
                         }
                     } else if (request.readyState == 4 && request.status == 400) {
-                      callback(array[7] + request.responseText);
+                      callback(Lang.get('messages.RecorderUploadErrorPrefix') + request.responseText);
                     }
                 };
 
                 request.upload.onloadstart = function() {
-                  callback(array[0]);
+                  callback(Lang.get('messages.RecorderUploadStarted'));
                 };
 
                 request.upload.onprogress = function(event) {
-                  callback(array[1] + Math.round(event.loaded / event.total * 100) + "%");
+                  callback(Lang.get('messages.RecorderUploadProgressPrefix') + Math.round(event.loaded / event.total * 100) + "%");
                 };
 
                 request.upload.onload = function() {
-                  callback(array[3]);
+                  callback(Lang.get('messages.RecorderUploadGettingFileURL'));
                 };
 
                 request.upload.onerror = function(error) {
-                  callback(array[4]);
+                  callback(Lang.get('messages.RecorderUploadFailed'));
                 };
 
                 request.upload.onabort = function(error) {
-                  callback(array[5]);
+                  callback(Lang.get('messages.RecorderUploadAborted'));
                 };
 
                 token = document.querySelector('meta[name="csrf-token"]').content;

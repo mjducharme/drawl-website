@@ -27,7 +27,7 @@ var zeroGain;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
 var encoding = 'wav';
-//var encoding = 'mp3';
+// var encoding = 'mp3'; instead if you want mp3
 var tempblob;
 var blocksubmit = 1;
 var recording = false;
@@ -89,25 +89,30 @@ function doneEncoding(blob) {
 
 function startSubmit() {
     if (blocksubmit == 0) {
-        if (confirm('Are you sure you wish to submit this recording?') == false) {
+        if (confirm(Lang.get('messages.RecorderSubmitConfirm')) == false) {
             return false;
         }
-        ShowProgressAnimation("Beginning recording submission process...");
+        var progressimage = document.getElementById('progressimage');
+        // progressimage.inneerHTML = '<img id="progressimg" src="/images/error.png" alt="Error!"/>'
+        progressimage.innerHTML = '<img id="progressimg" src="/images/please_wait.gif" alt="Loading.."/>';
+        ShowProgressAnimation(Lang.get('messages.RecorderSubmitBegin'));
         Recorder.setupPhpPost(tempblob, function(progress) {
             var progresstext = document.getElementById('progresstext');
-            if (progress.startsWith(array[7])) {
+            if (progress.startsWith(Lang.get('messages.RecorderUploadErrorPrefix'))) {
                 var progressimage = document.getElementById('progressimage');
                 progresstext.innerHTML = progress;
                 progressimage.innerHTML = '<img id="progressimg" src="/images/error.png" alt="Error!"/>'
+                $('#status-footer').removeClass('invisible');
                 return;
             } else if (progress === 'ended') {
                 recordButton.style.opacity = '1';
                 recordButton.disabled = false;
                 var progressimage = document.getElementById('progressimage');
-                progresstext.innerHTML = array[6] + "<br/><br/>" + array[8];
+                progresstext.innerHTML = Lang.get('messages.RecorderUploadSuccessful') + "<br/><br/>" + Lang.get('messages.RecorderUploadThankYou');
                 var progresstext = document.getElementById('recwarning');
                 recwarning.innerHTML = '';
                 progressimage.innerHTML = '<img id="progressimg" src="/images/success.gif" alt="Success!"/>'
+                $('#status-footer').removeClass('invisible');
                 /* var savebutton = document.getElementById("save");
                 savebutton.style.opacity="0"; */
                 return;
@@ -118,6 +123,9 @@ function startSubmit() {
         });
      
         blocksubmit = 1;
+        var savebutton = document.getElementById('save');
+        savebutton.style.opacity = '0.25';
+        savebutton.disabled = true;
     }
 }
 
@@ -125,12 +133,17 @@ function toggleRecording(e) {
     if (e.classList.contains("recording")) {
         // stop recording
         audioRecorder.stop();
-        audioContext.close();
-        gumStream.getAudioTracks()[0].stop();
+        // audioContext.close();
+        // gumStream.getAudioTracks()[0].stop();
         recording = false;
         e.classList.remove("recording");
         audioRecorder.getBuffers(gotBuffers);
-        ShowProgressAnimation("Please wait while encoding audio. This may take a minute...");
+        $("#rectext").text(Lang.get('messages.RecorderRec'));
+        $("#recordButton").removeClass("btn-danger");
+        $("#recordButton").addClass("btn-secondary");
+        var progressimage = document.getElementById('progressimage');
+        progressimage.innerHTML = '<img id="progressimg" src="/images/please_wait.gif" alt="Loading.."/>';
+        ShowProgressAnimation(Lang.get("messages.RecorderEncoding"));
     } else {
         var audioPlayer = document.getElementById('audioplayer');
         var currentAudio = document.getElementById('recorded-audio');
@@ -155,8 +168,13 @@ function toggleRecording(e) {
 
         e.classList.add("recording");
 
-        startRecording();
+        audioRecorder.clear();
+        audioRecorder.record();
         recording = true;
+
+        $("#rectext").text(Lang.get('messages.RecorderStop'));
+        $("#recordButton").removeClass("btn-secondary");
+        $("#recordButton").addClass("btn-danger");
     }
 }
 
@@ -252,16 +270,19 @@ function gotStream(stream) {
     zeroGain.connect(audioContext.destination);
     /* updateAnalysers(); */
     // var myMeterElement = document.getElementById('my-peak-meter');
+
+    // change text in jquery popup (needs to be done this way because volume meter auto detects size at init and does not adjust, so size becomes zero if done any other way)
     var firstStep = document.getElementById('first-step');
     var wizardTitle = document.getElementById('wizard-title');
-    firstStep.innerHTML = '<p>Now, check your microphone input levels. Your microphone is activated, but you are not currently being recorded. Try speaking random sentences into the microphone and see how the volume meter reacts. The numbers on the top represent the decibel level, with the quietest sound at -42 dB, and the loudest at 0 dB. As you speak, a green bar should appear below indicating what your current recording level is.</p><p><div id="my-peak-preview-meter" style="width: 400px; height: 50px; background: #202020;"></div></p><p>As long as your normal speaking volume is between -24 and -12 (decibels), your current volume is excellent. If your normal speaking is below -36 decibels, you should move closer to the microphone and/or adjust your settings.<p>If you are not seeing any reaction on the level meter, try refreshing this webpage and selecting a different audio input source when activating audio.';
-    wizardTitle.innerHTML = "Input Level Check";
+    var activateAudio = document.getElementById('activate-audio');
+    firstStep.innerHTML = '<p>' + Lang.get('messages.RecorderMicInputCheckAbove') + '</p><p><div id="my-peak-preview-meter" style="width: 400px; height: 50px; background: #202020;"></div></p><p>' + Lang.get("messages.RecorderMicInputCheckBelow") + '</p><p>' + Lang.get("messages.RecorderMicInputCheckNoSignal") + '</p>';
+    wizardTitle.innerHTML = Lang.get('messages.RecorderMicInputCheckTitle');
+    activateAudio.innerHTML = '<button type="button" class="btn btn-info" data-dismiss="modal" onclick="createPeakMeter()">' + Lang.get("messages.OK") + '</button>';
+
+    // create volume meter in jquery popup
     var myMeterPreviewElement = document.getElementById('my-peak-preview-meter');
-    var meterNode = webAudioPeakMeter.createMeterNode(realAudioInput, audioContext);
-    // webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
-    webAudioPeakMeter.createMeter(myMeterPreviewElement, meterNode, {});
-    audioRecorder.clear();
-    audioRecorder.record();
+    var meterPreviewNode = webAudioPeakMeter.createMeterNode(realAudioInput, audioContext);
+    webAudioPeakMeter.createMeter(myMeterPreviewElement, meterPreviewNode, {});
 
     inputPoint = audioContext.createGain();
 
@@ -269,6 +290,12 @@ function gotStream(stream) {
     realAudioInput = audioContext.createMediaStreamSource(stream);
     audioInput = realAudioInput;
     audioInput.connect(inputPoint);
+}
+
+function createPeakMeter() {
+    var myMeterElement = document.getElementById('my-peak-meter');
+    var meterNode = webAudioPeakMeter.createMeterNode(realAudioInput, audioContext);
+    webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
 }
 
 function initAudio() {
@@ -290,7 +317,7 @@ function initAudio() {
         // Some browsers just don't implement it - return a rejected promise with an error
         // to keep a consistent interface
         if (!getUserMedia) {
-            window.alert("Sorry, your web browser does not seem to support Web Audio API. The online recorder will not function. Please try upgrading your browser, or try a different browser.");
+            window.alert(Lang.get("messages.RecorderBrowserError"));
             return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
         }
 

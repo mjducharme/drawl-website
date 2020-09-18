@@ -175,7 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Nebed\UserAgent\UserAgentServiceProvider::class
+        Nebed\UserAgent\UserAgentServiceProvider::class,
+        Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class
 
     ],
 
