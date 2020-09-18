@@ -24,3 +24,7 @@ Needs more detail, but:
 6. Run php artisan key:generate to generate key.
 
 **WARNING** - First user to register for administration interface (/admin URL) is given admin rights, they can authorise further users from there. **AFTER DEPLOYING, REGISTER IMMEDIATELY** to prevent someone else from doing so.
+
+Language translation files and placeholder text (which can be easily modified) can be found in resources/lang/en/messages.php and the /resources/views folder structure. The consent form submission data and questtionaire responses are saved as JSON in /storage/app/json. The audio clips are uploaded to /storage/app/audio. The default audio can be changed from wav to 320Kbps mp3 to save space and decrease upload times by changing the setting in /public/js/main.js.
+
+Note: Each time you change a language file (ex. adding a new language translation, changing an existing translation) you need to rerun php artisan lang:js to re-generate the javascript version (/public/messages.js) to ensure that the javascript translations match the php translations.
