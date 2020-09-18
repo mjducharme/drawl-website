@@ -67,8 +67,6 @@ function exportWAV(type){
   var dataview = encodeWAV(interleaved);
   var audioBlob = new Blob([dataview], { type: type });
 
-  console.log('recorderWorker exportWAV');
-
   this.postMessage(audioBlob);
 }
 
@@ -78,8 +76,6 @@ function exportMP3(type){
 
   var dataview = encodeMP3(FloatArray2Int16(bufferL), FloatArray2Int16(bufferR));
   var audioBlob = new Blob(dataview, { type: type });
-
-  console.log('recorderWorker exportMP3');
 
   this.postMessage(audioBlob);
 }
