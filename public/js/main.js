@@ -31,19 +31,6 @@ var tempblob;
 var blocksubmit = 1;
 var recording = false;
 
-/* TODO:
-
-- offer mono option
-- "Monitor input" switch
-*/
-
-/*
-function saveAudio() {
-    audioRecorder.exportWAV( doneEncoding );
-    // could get mono instead by saying
-    // audioRecorder.exportMonoWAV( doneEncoding );
-} */
-
 function gotBuffers(buffers) {
     var canvas = document.getElementById("wavedisplay");
 
@@ -339,5 +326,3 @@ function initAudio() {
             console.log(e);
     });
 }
-
-// window.addEventListener('load', initAudio );
