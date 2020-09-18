@@ -44,7 +44,9 @@ class RecordingController extends Controller
             Log::Error('Empty file name');
             return response('Empty file name.', 400);
         }
-    
+    /*
+        This block no longer necessary, third party uploads are forbidden by CSRF token checking
+        
         // do NOT allow third party audio uploads
         if (isset($request['audio-filename']) && strrpos($request['audio-filename'], "RecordRTC-") !== 0) {
             Log::Error('Audio File name must start with RecordRTC-, filename is '.$request['audio-filename']);
@@ -56,6 +58,7 @@ class RecordingController extends Controller
             Log::Error('Video File name must start with RecordRTC-');
             return response('File name must start with "RecordRTC-"', 400);
         }
+        */
         
         $fileName = '';
         $tempName = '';

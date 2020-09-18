@@ -1,101 +1,42 @@
-<!DOCTYPE html>
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-<script src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-<meta http-equiv="content-type" content="text/html; charset=windows-1252">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
-	<title>@lang('messages.IndexTitle') &nbsp;>&nbsp; @lang('messages.RecorderTitle')</title>
+@extends('layouts.wizard')
 
-    <div id="dom-target" style="display: none;">
-    	{{ Session::get('user_id') }}
-    </div>
-    <script>
-        var div = document.getElementById("dom-target");
-        var user_id = div.innerText.trim();
-        navigator.permissions.query({name:'microphone'}).then(function(result) {
-		  if (result.state == 'granted') {
+@section('title')
+@lang('messages.RecorderTitle')
+@endsection
 
-		  } else if (result.state == 'prompt') {
+@section('extra-headers')
+<script src="{{ asset('js/audiodisplay.js') }}"></script>
+<script src="{{ asset('js/recorderjs/recorder.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/web-audio-peak-meter.min.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#activateAudio").modalWizard();
+		$('#activateAudio').modal('show');
+		$("#loading-div-background").css({ opacity: 1.0 });
+	});
 
-		  } else if (result.state == 'denied') {
-
-		  }
-		  result.onchange = function() {
-
-		  };
-		});
-	</script>
-	<script src="{{ asset('js/audiodisplay.js') }}"></script>
-	<script src="{{ asset('js/recorderjs/recorder.js') }}"></script>
-	<script src="{{ asset('js/main.js') }}"></script>
-	<script src="{{ asset('js/web-audio-peak-meter.min.js') }}"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function (){
-			$("#loading-div-background").css({ opacity: 1.0 });
-		});
-	
-		function ShowProgressAnimation(message){
-			var progresstext = document.getElementById('progresstext');
-			progresstext.innerHTML = message;
-			$("#loading-div-background").show();
-		}
-
-		function EndProgressAnimation(){
-			$("#loading-div-background").hide();
-		}
-	</script>
-
-
-<style>
-	html { overflow: scroll; }
-	body { 	
-		font: 12pt Arial, sans-serif; 
-		background: lightgrey;
-		// display: flex;
-		// flex-direction: column;
-		height: 100vh;
-		width: 100%;
-		margin: 0 0;
+	function ShowProgressAnimation(message){
+		var progresstext = document.getElementById('progresstext');
+		progresstext.innerHTML = message;
+		$("#loading-div-background").show();
+		$("#my-peak-meter").hide();
 	}
+
+	function EndProgressAnimation(){
+		$("#loading-div-background").hide();
+		$("#my-peak-meter").show();
+	}
+</script>
+<style>
 	canvas { 
 		display: inline-block; 
 		background: #202020; 
 		width: 90%;
 		height: 45%;
-		box-shadow: 0px 0px 10px blue;
-	}
-	h4 {color: #337ab7;}
-
-	#controls {
-		display: flex;
-		flex-direction: column;
-		height: 15%;
-		width: 100%;
-		min-height: 160px;
+		{{-- box-shadow: 0px 0px 10px blue; --}}
 	}
 
-	#buttons {
-		display: flex;
-		flex-direction: row;
-        text-align: center;
-		align-items: center;
-		padding: 10px 0px;
-		width: 100%;
-		justify-content: space-around;
-	}
-
-	#recwarning {
-		padding: 10px 0px;
-		text-align: center;
-		margins: auto;
-	}
-	#record, #exit, #save img { max-height: 70px; height: 10vh; width: auto;}
-	// #exit { height: 70px; }
-	// #save, #save img { height: 70px; }
 	#record.recording { 
 		background: red;
 		background: -webkit-radial-gradient(center, ellipse cover, #ff0000 0%,lightgrey 75%,lightgrey 100%,#7db9e8 100%); 
@@ -104,30 +45,30 @@
 	}
 
 	#loading-div-background{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #fff;
-    width: 100%;
-    height: 100%;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #fff;
+	width: 100%;
+	height: 100%;
 }
 
 #loading-div{
-    width: 300px;
-    background-color: #fff;
-    border: 5px solid #1468b3;
-    text-align: center;
-    color: #202020;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -150px;
-    margin-top: -100px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    behavior: url("/css/pie/PIE.htc"); /* HANDLES IE */
+	width: 300px;
+	background-color: #fff;
+	border: 5px solid #1468b3;
+	text-align: center;
+	color: #202020;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -100px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	behavior: url("/css/pie/PIE.htc"); /* HANDLES IE */
 }
 
 #progresstext {
@@ -142,185 +83,222 @@
 		margin:30px;
 	}
 
-	#save { opacity: 0.25;}
-	#save[download] { opacity: 1;}
-	#viz {
-		margin-top: 10px;
-		height: 55%;
-		width: 100%;
-		max-width: 350px;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-		align-items: center;
-	}
-
-.column-container {display: flex; width: 100%; height: 100%; flex-direction: row; overflow: auto;}
-.second-column { display:flex; flex-direction: column; overflow: auto; }
-.first-column { flex: 1 1; border: none; margin: 0; padding: 0; overflow: auto; min-width: 375px;}
-.container { overflow:overlay; max-height: 85%; width:100%;}
-.btntext {max-width: 100px;}
-
-	// #save, #save img { height: 10vh; }
-
-
-	@media (orientation: portrait) {
-		.column-container { flex-direction: column; width: 100%; height: 100%;}
-		.first-column { width: 100%; max-height: 55%; overflow: auto;}
-		.second-column { width: 100%; min-width: 300px;}
-		/*#viz { height: 150px; }*/
-		#record, #exit, #save img { height: 10vw;}
-		#controls { font-size: 3vw; } 
-		// #controls { flex-direction: column; height: 100%; width: 100%;}
-		// #viz { height: 100%; width: 100%;}
-	}
-
-object{  width: 100%;  height: 60%; font-family: arial, sans-serif;}
-table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;}
-
 
 
 </style>
-</head>
-<body>
-    <div id="loading-div-background">
-        <div id="loading-div" class="ui-corner-all">
-            <div id="progressimage"><img id="progressimg" src="/images/please_wait.gif" alt="Loading.." /><br /></div>
-            <div id="progresstext">Encoding Audio. Please wait...</div>
-        </div>
-    </div>
-    <div class="column-container">
-        <div class="first-column">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
-            <nav class="navbar navbar-primary bg-primary">
-                <span class="navbar-brand mb-0 h1">@lang('messages.IndexTitle') &nbsp;>&nbsp;
-                    @lang('messages.RecorderTitle')</span>
-            </nav>
-            <div class="container">
-                <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion"
-                                    href="#collapse1">@lang('messages.RecorderInstructionsTitle')</a>
-                            </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
-                            <div class="panel-body">@include('includes.'.$locale.".recorder_instructions")</div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion"
-                                    href="#collapse2">@lang('messages.RecorderReadingTitle')</a>
-                            </h4>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">@include('includes.'.$locale.".reading_passage")</div>
-                        </div>
-                    </div>
-					{{--
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion"
-                                    href="#collapse3">@lang('messages.RecorderSpontaneous')</a>
-                            </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">@include('includes.'.$locale.".spontaneous_prompts")</div>
-                        </div>
+@endsection
+
+
+@section('content')
+<div id="activateAudio" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		
+		<div class="modal-header">
+		  <h5 class="modal-title"><div id="wizard-title">Activate Audio</div></h5>
+		</div>
+		<div class="modal-body">
+				<div id="first-step">
+					<p>Please click the button below to activate the audio recording functionality in your web browser. If your computer or device has multiple microphone inputs, you may be prompted for which input you wish to activate. If you select the wrong input by mistake, please reload this page and you should be prompted again.</p>
+				</div>
+		</div>
+		<div id="wizard-footer" class="modal-footer">
+			<p id="activate-audio" class="text-center"><button type="button" class="btn btn-primary" onclick="initAudio();">Activate Audio</button></p>
+		</div>
+	  </div>
+	</div>
+  </div>
+  <div id="audioWizard" class="modal" data-current-step="1" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		
+		<div class="modal-header">
+		  <h5 class="modal-title">Recording Setup Wizard</h5>
+		</div>
+		<div class="modal-body">
+			<fieldset data-step="1">
+				<div id="first-step">
+					<p>Please click the button below to activate the audio recording functionality in your web browser. If your computer or device has multiple microphone inputs, you may be prompted for which input you wish to activate. If you select the wrong input by mistake, please reload this page and you should be prompted again.</p>
+					<p id="activate-audio" class="text-center"><button type="button" class="btn btn-primary" onclick="initAudio();">Activate Audio</button></p>
+				</div>
+			</fieldset>
+			<fieldset data-step="2">
+				<p>Now, check your microphone input levels.</p>
+				<div id="my-peak-preview-meter" style="width: 400px; height: 50px; background: #202020;"></div>
+			</fieldset>
+		</div>
+		<div class="modal-footer">
+		  	<button class="btn" data-step-to="prev">
+            	Previous
+        	</button>
+      	  	<button class="btn" data-step-to="next">
+        	    Next
+        	</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+		<div id="loading-div-background">
+			<div id="loading-div" class="ui-corner-all">
+				<div id="progressimage"><img id="progressimg" src="/images/please_wait.gif" alt="Loading.." /><br /></div>
+				<div id="progresstext">Encoding Audio. Please wait...</div>
+			</div>
+		</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-9">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs">
+							<li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#instructions">@lang('messages.RecorderInstructionsTitle')</a>
+							</li>
+							<li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#test">@lang('messages.RecorderTestTitle')</a>
+							</li>
+							<li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#read">@lang('messages.RecorderReadingTitle')</a>
+							</li>
+							<li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#spontaneous">@lang('messages.RecorderSpontaneous')</a>
+                            </li>
+						</ul>
 					</div>
-					--}}
-
+					<div class="card-body">
+						<div class="tab-content mt-3">
+							<div class="tab-pane active" id="instructions">
+								<p class="card-text">
+									@include('includes.'.$locale.".recorder_instructions")
+								</p>
+							</div>
+							<div class="tab-pane" id="test">
+								<p class="card-text">
+									@include('includes.'.$locale.".recorder_test")
+								</p>
+							</div>
+							<div class="tab-pane" id="read">
+								<p class="card-text">
+									@include('includes.'.$locale.".reading_passage")
+								</p>
+							</div>
+							<div class="tab-pane" id="spontaneous">
+								<p class="card-text">
+									@include('includes.'.$locale.".spontaneous_prompts")
+								</p>
+							</div>
+						</div>
+					</div>
                 </div>
             </div>
-        </div>
 
-        <div class="second-column">
-            <div id="viz">
-                <div id="my-peak-meter" style="width: 5em; height: 20em; margin: 1em 0;"></div>
-                <canvas id="analyser" width="1000" height="150"></canvas>
-                <canvas id="wavedisplay" width="1000" height="150"></canvas>
-                <audio id="recorded-audio" controls="controls" style="width:315px;"></audio>
-            </div>
-            <div id="controls">
-                <div id="buttons">
-                    <div id="record-div" class="btntext"><a href="#" title="Click to start or stop recording"
-                            onclick="toggleRecording(document.getElementById('record'));"><img id="record"
-                                src="{{ asset('images/mic128.png') }}" width="70" height="70"><br />
-                            <div id="rectext">@lang('messages.RecorderRec')</div>
-                        </a></div>
-                    <div id="save-div" class="btntext"><a id="save" href="#" onclick="startSubmit(this);"><img
-                                src="{{ asset('images/save.svg') }}" width="70"
-                                height="70"><br />@lang('messages.RecorderSave')</a></div>
-                    <h4 id="rectime"><time>00:00:00</time></h4>
-                </div>
+			<div class="col-3 text-center">
+				<div class="card">
+				<div class="card-header">
+					1. Check Microphone Input
+				</div>
+				<div class="card-body">
+					{{--<div id="my-peak-meter" style="width: 90%; height: 50px; display: inline-block; background: #202020;"></div>--}}
+					<canvas id="analyser" width="1000" height="150"></canvas>
+				</div>
+				<br/>
+				<div class="card-header">
+					2. Record
+				</div>
+				<div class="card-body">
+				</div>
+				<div class="card-header">
+					3. Playback
+				</div>
+				<div class="card-body">
+					<canvas id="wavedisplay" width="1000" height="150"></canvas>
+					<div id="audioplayer"></div>
+				</div>
+				<div class="card-header">
+					4. Submit (unless test recording)
+				</div>
+				<div class="card-body">
+				</div>
+				<div id="controls">
+					<button id="recordButton" class="btn bg-transparent p-0 mx-3">
+						<img id="record" src="{{ asset('images/mic128.png') }}" width="75" height="75">
+						<div id="rectext" style="max-width: 100px; white-space: normal">@lang('messages.RecorderRec')</div>
+					</button>
+					<button id="save" type="button" class="btn bg-transparent p-0 mx-3" onclick="startSubmit(this);" disabled>
+						<img src="{{ asset('images/save.svg') }}" width="75" height="75">
+						<div style="max-width: 100px; white-space: normal">@lang('messages.RecorderSave')</div>
+					</button>
+					<br>
+					<br>
+					<h4 id="rectime"><time>00:00:00</time></h4>
+					<br>
+					<div id="recwarning">
+						<div style="color: red;">@lang('messages.RecorderNotYet')</div>
+					</div>
+				</div>
+			</div>
+		</div>
+@endsection
 
-                <div id="recwarning">
-                    <div style="color: red;">@lang('messages.RecorderNotYet')</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-
+@section('after-body')
 <script>
-		var h1 = document.getElementById('rectime'),
-	  start = document.getElementById('record'),
-	  stop = document.getElementById('stop'),
-	  clear = document.getElementById('clear'),
-	  cmpt = 0,
-	  seconds = 0,
-	  minutes = 0,
-	  hours = 0,
-	  t;
+    const user_id = "{{ Session::get('user_id') }}";
+    let array = "@lang('messages.RecorderUploadStarted'),@lang('messages.RecorderUploadProgressPrefix'),progress-about-to-end,@lang('messages.RecorderUploadGettingFileURL'),@lang('messages.RecorderUploadFailed'),@lang('messages.RecorderUploadAborted'),@lang('messages.RecorderUploadSuccessful'),@lang('messages.RecorderUploadErrorPrefix'),@lang('messages.RecorderUploadThankYou')";
+    array = array.split(',');
+    const browserError = "@lang('messages.RecorderBrowserError')";
+    const h1 = document.getElementById('rectime');
+    const start = document.getElementById('recordButton');
+    var recording_in_progress;
+    var seconds = 0;
+    var minutes = 0;
+    var hours = 0;
+    var t;
 
-	function add() {
-	  seconds++;
-	  if (seconds >= 60) {
-	    seconds = 0;
-	    minutes++;
-	    if (minutes >= 60) {
-	      minutes = 0;
-	      hours++;
-	    }
-	  }
+  function add() {
+    seconds++;
+    if (seconds >= 60) {
+      seconds = 0;
+      minutes++;
+      if (minutes >= 60) {
+        minutes = 0;
+        hours++;
+      }
+    }
 
-	  h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+    h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+    timer();
+  }
 
-	  timer();
-	}
+  function timer() {
+    t = setTimeout(add, 1000);
+  }
 
-	function timer() {
-	  t = setTimeout(add, 1000);
-	}
-	timer();
+  timer();
 
-	window.onload=function()
-	{
-	    clearTimeout(t);
-	      h1.textContent = "00:00:00";
-	      seconds = 0;
-	      minutes = 0;
-	      hours = 0;
-	}
-	/* Start button */
-	start.onclick = function() {
-	  if (cmpt % 2 == 0) {
-	    timer();
-	  } 
-	  else {
-	    clearTimeout(t);
-	      h1.textContent = "00:00:00";
-	      seconds = 0;
-	      minutes = 0;
-	      hours = 0;
-	  }
-	  cmpt++;
+  window.onload=function() {
+      clearTimeout(t);
+        h1.textContent = "00:00:00";
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        recording_in_progress = false;
+  }
+  
+  start.onclick = function() {
+      toggleRecording(document.getElementById('record'));
 
-	}
+      if (recording_in_progress) {
+          clearTimeout(t);
+          h1.textContent = '00:00:00';
+          seconds = 0;
+          minutes = 0;
+          hours = 0;
+          recording_in_progress = false;
+      } else {
+          timer();
+          recording_in_progress = true;
+      }
+  }
 </script>
-
-</html>
+@endsection

@@ -78,7 +78,6 @@ DEALINGS IN THE SOFTWARE.
     }
 
     this.exportWAV = function(cb, type){
-      console.log('calling exportWAV')
       currCallback = cb || config.callback;
       type = type || config.type || 'audio/wav';
       if (!currCallback) throw new Error('Callback not set');
@@ -89,7 +88,6 @@ DEALINGS IN THE SOFTWARE.
     }
   
     this.exportMP3 = function(cb, type) {
-      console.log('calling exportMP3')
       currCallback = cb || config.callback;
       type = type || config.type || 'audio/mpeg';
       if (!currCallback) throw new Error('Callback not set');
@@ -120,42 +118,36 @@ DEALINGS IN THE SOFTWARE.
 
             function makeXMLHttpRequest(url, data, callback) {
                 var request = new XMLHttpRequest();
+
                 request.onreadystatechange = function() {
                     if (request.readyState == 4 && request.status == 200) {
                         if(request.responseText === 'success') {
                             callback('upload-ended');
                             return;
                         }
-
-                        /* document.querySelector('.header').parentNode.style = 'text-align: left; color: red; padding: 5px 10px;';
-                        document.querySelector('.header').parentNode.innerHTML = request.responseText; */
                     } else if (request.readyState == 4 && request.status == 400) {
-                      callback('Error: ' + request.responseText);
+                      callback(array[7] + request.responseText);
                     }
                 };
 
                 request.upload.onloadstart = function() {
-                    callback('Upload started...');
+                  callback(array[0]);
                 };
 
                 request.upload.onprogress = function(event) {
-                    callback('Upload Progress ' + Math.round(event.loaded / event.total * 100) + "%");
+                  callback(array[1] + Math.round(event.loaded / event.total * 100) + "%");
                 };
 
-                /* request.upload.onload = function() {
-                    callback('progress-about-to-end');
-                }; */
-
                 request.upload.onload = function() {
-                    callback('Getting File URL..');
+                  callback(array[3]);
                 };
 
                 request.upload.onerror = function(error) {
-                    callback('Failed to upload to server');
+                  callback(array[4]);
                 };
 
                 request.upload.onabort = function(error) {
-                    callback('Upload aborted.');
+                  callback(array[5]);
                 };
 
                 token = document.querySelector('meta[name="csrf-token"]').content;
@@ -172,19 +164,23 @@ DEALINGS IN THE SOFTWARE.
     link.download = filename || 'output.wav';
   }
 
-  Recorder.setupPhpPost  = function(blob, filename, callback){
-    var d = new Date();
+  Recorder.setupPhpPost  = function(blob, callback){
+    var date = new Date();
+    var hour = date.getHours().toString();
+    var minute = date.getMinutes().toString();
+    var second = date.getSeconds().toString();
+    var timestamp = hour + '-' + minute + '-' + second;
+
     var fileext = ".wav";
     if (blob.type == "audio/mpeg") {
-      console.log("File is mp3");
       fileext = ".mp3";
     }
-    var filename = (d.getTime()).toString() + fileext;
     console.log('Setting up Php Post');
-    filename = "RecordRTC-" + user_id + "-" + filename;
+    var filename = user_id + '_' + timestamp + fileext;
     var formData = new FormData();
-    formData.append('audio' + '-filename', filename);
-    formData.append('audio' + '-blob', blob);
+    formData.append('participant_folder', user_id + '/');
+    formData.append('audio-filename', filename);
+    formData.append('audio-blob', blob);
     makeXMLHttpRequest('/recordings', formData, function(progress) {
         if (progress !== 'upload-ended') {
             callback(progress)
