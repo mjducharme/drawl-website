@@ -24,8 +24,7 @@ var rafID = null;
 var analyserContext = null;
 var canvasWidth, canvasHeight;
 var recIndex = 0;
-var encoding = 'wav';
-//var encoding = 'mp3';
+var encoding = 'monowav'; // available options: monowav, wav, mp3
 var tempblob;
 var blocksubmit = 1;
 
@@ -42,8 +41,8 @@ function saveAudio() {
     // audioRecorder.exportMonoWAV( doneEncoding );
 } */
 
-function gotBuffers( buffers ) {
-    var canvas = document.getElementById( "wavedisplay" );
+function gotBuffers(buffers) {
+    var canvas = document.getElementById("wavedisplay");
 
     drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 
@@ -51,11 +50,14 @@ function gotBuffers( buffers ) {
     // so here's where we should set up the download.
     if(encoding === 'mp3') {
         console.log('Encoding as MP3');
-        audioRecorder.exportMP3( doneEncoding );
-      } else {
+        audioRecorder.exportMP3(doneEncoding);
+    } else if (encoding === 'monowav') {
+        console.log('Encoding as Mono WAV');
+        audioRecorder.exportMonoWAV(doneEncoding);
+    } else {
         console.log('Encoding as WAV');
-        audioRecorder.exportWAV( doneEncoding );
-      }
+        audioRecorder.exportWAV(doneEncoding);
+    }
 }
 
 function doneEncoding( blob ) {
