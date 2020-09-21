@@ -143,7 +143,12 @@ class RecordingController extends Controller
             return response('Invalid file extension: '.$extension, 400);
         }
     
-        if (!move_uploaded_file($tempName, $filePath)) {
+        try {
+            if (!move_uploaded_file($tempName, $filePath)) {
+                Log::Error('Problem saving file: '.$tempName.','.$filePath);
+                return response('Problem saving file: '.$tempName.','.$filePath, 400);
+            }
+        } catch (Throwable $e) {
             Log::Error('Problem saving file: '.$tempName.','.$filePath);
             return response('Problem saving file: '.$tempName.','.$filePath, 400);
         }
