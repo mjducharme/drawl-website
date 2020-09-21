@@ -88,6 +88,8 @@ function startSubmit() {
         Recorder.setupPhpPost(tempblob, function(progress) {
             var progresstext = document.getElementById('progresstext');
             if (progress.startsWith(Lang.get('messages.RecorderUploadErrorPrefix'))) {
+                recordButton.style.opacity = '1';
+                recordButton.disabled = false;
                 var progressimage = document.getElementById('progressimage');
                 progresstext.innerHTML = progress;
                 progressimage.innerHTML = '<img id="progressimg" src="/images/error.png" alt="Error!"/>'
@@ -102,19 +104,16 @@ function startSubmit() {
                 recwarning.innerHTML = '';
                 progressimage.innerHTML = '<img id="progressimg" src="/images/success.gif" alt="Success!"/>'
                 $('#status-footer').removeClass('invisible');
-                /* var savebutton = document.getElementById("save");
-                savebutton.style.opacity="0"; */
+                blocksubmit = 1;
+                var savebutton = document.getElementById('save');
+                savebutton.style.opacity = '0.25';
+                savebutton.disabled = true;
                 return;
             }
             recordButton.style.opacity = '0.25';
             recordButton.disabled = true;
             progresstext.innerHTML = progress;
         });
-     
-        blocksubmit = 1;
-        var savebutton = document.getElementById('save');
-        savebutton.style.opacity = '0.25';
-        savebutton.disabled = true;
     }
 }
 
