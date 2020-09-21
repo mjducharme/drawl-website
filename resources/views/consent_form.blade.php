@@ -15,7 +15,7 @@
     @csrf
     <div class="container w-75 px-2">
         <div class="row">
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 <h4>@lang('messages.ConsentParticipation')</h4>
                 <p>@include('includes.'.$locale.".consent_participation_text")</p>
 
@@ -38,7 +38,7 @@
                     <label class="form-check-label" for="check_1">@lang('messages.ConsentParticipationConsent')</label>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-6 col-sm-12">
                 <h4>@lang('messages.ConsentPublication')</h4>
                 <p>@include('includes.'.$locale.".consent_publication_text")</p>
                 <div class="form-check w-75 mx-auto">
