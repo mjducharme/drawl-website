@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use App\Recording;
+use Exception;
 
 class RecordingController extends Controller
 {
@@ -148,9 +149,9 @@ class RecordingController extends Controller
                 Log::Error('Problem saving file: '.$tempName.','.$filePath);
                 return response('Problem saving file: '.$tempName.','.$filePath, 400);
             }
-        } catch (Throwable $e) {
-            Log::Error('Problem saving file: '.$tempName.','.$filePath);
-            return response('Problem saving file: '.$tempName.','.$filePath, 400);
+        } catch (Exception $e) {
+            Log::Error('Problem saving file: '.$tempName.','.$filePath.' : '.$e);
+            return response('Problem saving file: '.$tempName.','.$filePath.' : '.$e, 400);
         }
         
         echo 'success';
