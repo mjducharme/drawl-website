@@ -501,7 +501,7 @@
       </div>
    </div>
    <div class="text-center">
-      <button type="submit" class="btn btn-primary">@lang('messages.Next')</button><br/>
+      <button type="submit" class="btn btn-primary">@lang('messages.Next')</button><br/><br/><br/>
    </div>
 </form>
 @endsection

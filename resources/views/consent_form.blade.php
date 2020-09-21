@@ -49,8 +49,12 @@
         </div>
     </div>
     <div class="text-center">
+        <br/>
         <button type="submit" id="c_button" class="btn btn-primary" disabled>
             @lang('messages.Submit')</button>
+            <br/>
+            <br/>
+            <br/>
     </div>
 </form>
 
