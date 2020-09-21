@@ -151,7 +151,7 @@ class RecordingController extends Controller
             }
         } catch (Exception $e) {
             Log::Error('Problem saving file: '.$tempName.','.$filePath.' : '.$e);
-            return response('Problem saving file: '.$tempName.','.$filePath.' : '.$e, 400);
+            return response('Problem saving file: '.$tempName.','.$filePath.' : '.$e->getMessage(), 400);
         }
         
         echo 'success';
