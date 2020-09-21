@@ -8,7 +8,7 @@
 <script src="{{ asset('js/audiodisplay.js') }}"></script>
 <script src="{{ asset('js/recorderjs/recorder.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
-<script src="{{ asset('js/web-audio-peak-meter.min.js') }}"></script>
+<script src="{{ asset('js/web-audio-peak-meter.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('css/jquery.scrolling-tabs.min.css') }}">
 <script src="{{ asset('js/jquery.scrolling-tabs.min.js') }}"></script>
 <script src="{{ asset('messages.js') }}"></script>

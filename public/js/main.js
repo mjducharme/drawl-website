@@ -265,12 +265,15 @@ function gotStream(stream) {
     var activateAudio = document.getElementById('activate-audio');
     firstStep.innerHTML = '<p>' + Lang.get('messages.RecorderMicInputCheckAbove') + '</p><p><div id="my-peak-preview-meter" style="width: 400px; height: 50px; background: #202020;"></div></p><p>' + Lang.get("messages.RecorderMicInputCheckBelow") + '</p><p>' + Lang.get("messages.RecorderMicInputCheckNoSignal") + '</p>';
     wizardTitle.innerHTML = Lang.get('messages.RecorderMicInputCheckTitle');
-    activateAudio.innerHTML = '<button type="button" class="btn btn-info" data-dismiss="modal" onclick="createPeakMeter()">' + Lang.get("messages.OK") + '</button>';
+    activateAudio.innerHTML = '<button type="button" class="btn btn-info" data-dismiss="modal">' + Lang.get("messages.OK") + '</button>';
 
     // create volume meter in jquery popup
+    var previewMeter = webAudioPeakMeter();
     var myMeterPreviewElement = document.getElementById('my-peak-preview-meter');
-    var meterPreviewNode = webAudioPeakMeter.createMeterNode(realAudioInput, audioContext);
-    webAudioPeakMeter.createMeter(myMeterPreviewElement, meterPreviewNode, {});
+    var meterPreviewNode = previewMeter.createMeterNode(realAudioInput, audioContext);
+    previewMeter.createMeter(myMeterPreviewElement, meterPreviewNode, {});
+
+    createPeakMeter();
 
     inputPoint = audioContext.createGain();
 
@@ -281,9 +284,10 @@ function gotStream(stream) {
 }
 
 function createPeakMeter() {
+    var mainMeter = webAudioPeakMeter();
     var myMeterElement = document.getElementById('my-peak-meter');
-    var meterNode = webAudioPeakMeter.createMeterNode(realAudioInput, audioContext);
-    webAudioPeakMeter.createMeter(myMeterElement, meterNode, {});
+    var meterNode = mainMeter.createMeterNode(realAudioInput, audioContext);
+    mainMeter.createMeter(myMeterElement, meterNode, {});
 }
 
 function initAudio() {
