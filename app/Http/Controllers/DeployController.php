@@ -20,7 +20,7 @@ class DeployController extends Controller
     public function deploy(Request $request)
     {
         $root_path = base_path();
-        $process = new Process::fromShellCommandline('cd ' . $root_path . '; sh ./deploy.sh');
+        $process = new Process(['cd ' . $root_path . '; sh ./deploy.sh']);
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
