@@ -24,6 +24,8 @@ class DeployController extends Controller
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
+
+        return response('Hello World', 200)->header('Content-Type', 'text/plain');
         
     }
 }
