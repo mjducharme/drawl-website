@@ -19,12 +19,11 @@ class DeployController extends Controller
 
     public function deploy(Request $request)
     {
-        $text = "";
         $root_path = base_path();
         $process = new Process(['/bin/sh','../deploy.sh']);
         $process->run(function ($type, $buffer) {
-            $text = $text . $buffer;
+            echo $buffer;
         });
-        return response($text, 200)->header('Content-Type', 'text/plain');
+        
     }
 }
