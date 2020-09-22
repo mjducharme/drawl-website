@@ -31,9 +31,9 @@ class ConsentFormController extends Controller
 
         $public = false;
           
-        $name = $this->test_input($request->user_name);
-        $email = $this->test_input($request->user_email);
-        if ($this->test_input($request->share_box) == "on") {
+        $name = $request->user_name;
+        $email = $request->user_email;
+        if ($request->share_box == "on") {
             $public = true;
         };
         $language = \App::getLocale();
@@ -48,13 +48,6 @@ class ConsentFormController extends Controller
         $request->session()->put('user_id', $testModel->getKey());
 
         return redirect()->route('demographic_questionnaires.create');
-    }
-
-    private function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
     }
 
     // delete the consent form
