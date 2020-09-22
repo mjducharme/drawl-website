@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd ..
+
 # activate maintenance mode
 php artisan down
 
