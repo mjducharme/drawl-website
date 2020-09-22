@@ -36,6 +36,7 @@
                     <input class="form-check-input" id="check_1" type="checkbox" name="consent_box"
                         onchange="document.getElementById('c_button').disabled = !this.checked" required>
                     <label class="form-check-label" for="check_1">@lang('messages.ConsentParticipationConsent')</label>
+                    <br/><br/>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12">
