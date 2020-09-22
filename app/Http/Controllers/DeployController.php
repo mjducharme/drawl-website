@@ -24,6 +24,7 @@ class DeployController extends Controller
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
+        echo "<br/>";
         $process = new Process(['cd ' . $root_path . '; sh ./deploy.sh']);
         $process->run(function ($type, $buffer) {
             echo $buffer;
