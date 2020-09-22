@@ -25,7 +25,7 @@ class DeployController extends Controller
             echo $buffer;
         });
 
-        return response('', 200)->header('Content-Type', 'text/plain');
+        return response('', 200)->header('Content-Type', 'text/plain')->header('Charset', 'utf-8');
         
     }
 }
