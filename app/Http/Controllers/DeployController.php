@@ -20,12 +20,12 @@ class DeployController extends Controller
     public function deploy(Request $request)
     {
         $root_path = base_path();
-        $process = new Process(['cd ' . $root_path . '; pwd']);
+        $process = new Process(['cd ' . $root_path . '; /bin/pwd']);
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
         echo "<br/>";
-        $process = new Process(['cd ' . $root_path . '; sh ./deploy.sh']);
+        $process = new Process(['cd ' . $root_path . '; /bin/sh ./deploy.sh']);
         $process->run(function ($type, $buffer) {
             echo $buffer;
         });
