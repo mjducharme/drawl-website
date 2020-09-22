@@ -10,14 +10,14 @@
 	<script src="https://kit.fontawesome.com/535513208d.js" crossorigin="anonymous"></script>
     @yield('extra-headers')
 <title>
-	@lang('messages.IndexTitle') &nbsp;>&nbsp; @yield('title')
+	@lang('messages.IndexTitle') &nbsp;»&nbsp; @yield('title')
 </title>
 </head>
 <body>
     @yield('body-begin')
 	<nav class="navbar navbar-dark bg-primary">
         <span class="navbar-brand m1 h1">
-			@lang('messages.IndexTitle') &nbsp;>&nbsp; @yield('title')
+			@lang('messages.IndexTitle') &nbsp;»&nbsp; @yield('title')
 		</span>
 	</nav>
 	<br/>
