@@ -1,4 +1,4 @@
-<h4>Make sure you have sumbitted your recording of the Reading Sample. <br><br>You can use the prompts below if you wish, but you can talk about something else if you'd like. You are free to decide what you discuss, but we would like to ask you to avoid topics that may be sensitive or controversial from a religious / political / racial / sexual point of view. We would also like you to avoid disclosing personally identifying information such as your name, address, workplace, etc. <br> The recording needs to be between 5 and 8 minutes long. When you are ready, click the microphone button once again and start speaking. When you are done, click on the microphone button again to end the recording, and click the submit button.</h4>
+<h5>Make sure you have sumbitted your recording of the Reading Sample. <br><br>You can use the prompts below if you wish, but you can talk about something else if you'd like. You are free to decide what you discuss, but we would like to ask you to avoid topics that may be sensitive or controversial from a religious / political / racial / sexual point of view. We would also like you to avoid disclosing personally identifying information such as your name, address, workplace, etc. <br> The recording needs to be between 5 and 8 minutes long. When you are ready, click the microphone button once again and start speaking. When you are done, click on the microphone button again to end the recording, and click the submit button.</h5>
         <ul>
         <li>Tell us about your hobbies</li>
         <li>What was your childhood dream?</li>
@@ -12,4 +12,4 @@
         <li>Tell us about your favourite book or movie.</li>
         <li>Did you like school? What were your best/worst subjects?</li>
         </ul>
-        <h4>Thank you for your participation.</h4>
+        <h5>Thank you for your participation.</h5>
