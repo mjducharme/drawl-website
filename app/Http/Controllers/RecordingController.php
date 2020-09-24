@@ -49,6 +49,7 @@ class RecordingController extends Controller
         $fileName = '';
         $tempName = '';
         $file_idx = '';
+        $participantFolder = $request['participant_folder'];
         
         if (!empty($request->file('audio-blob'))) {
             $file_idx = 'audio-blob';
@@ -92,7 +93,7 @@ class RecordingController extends Controller
         }
     
         
-        $filePath = '../storage/app/audio/' . $fileName;
+        $filePath = '../storage/app/audio/' . $participantFolder . $fileName;
         
         // make sure that one can upload only allowed audio/video files
         $allowed = array(
@@ -109,7 +110,16 @@ class RecordingController extends Controller
             Log::Error('Invalid file extension: '.$extension);
             return response('Invalid file extension: '.$extension, 400);
         }
-    
+
+        if (!file_exists('../storage/app/audio/'.$participantFolder)) {
+            try {
+                mkdir('../storage/app/audio/'.$participantFolder, 0775, true);
+            } catch (Exception $e) {
+                Log::Error('Problem creating participant folder: ../storage/app/audio'.$participantFolder.' : '.$e);
+                return response('Problem creating participant folder: ../storage/app/audio'.$participantFolder.' : '.$e->getMessage(), 400);
+            }
+        }
+
         try {
             if (!move_uploaded_file($tempName, $filePath)) {
                 Log::Error('Problem saving file: '.$tempName.','.$filePath);
@@ -138,7 +148,7 @@ class RecordingController extends Controller
                 // Recording could not be found
                 return back()->with('error', 'Delete failed - this recording could not be found!');
             };
-            Storage::delete('audio/' . $recording->recording_filename);
+            Storage::delete('audio/' . $recording->consent_form_id . '/' . $recording->recording_filename);
             $recording->delete();
             return back()->with('status', 'Recording ID ' . $recording->id . ' has been successfully deleted!');
         }
