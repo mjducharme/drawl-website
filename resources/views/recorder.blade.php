@@ -118,11 +118,11 @@
 							<li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#read">@lang('messages.RecorderReadingTitle')</a>
 							</li>
-							{{--
+							@if(config('app.wlar_additional_reading_enabled'))
 							<li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#spontaneous">@lang('messages.RecorderSpontaneous')</a>
+                                <a class="nav-link" data-toggle="tab" href="#additional">@lang('messages.RecorderAdditionalReadingTitle')</a>
 							</li>
-							--}}
+							@endif
 						</ul>
 					</div>
 					<div class="card-body limitsize">
@@ -142,12 +142,13 @@
 									@include('includes.'.$locale.".reading_passage")
 								</p>
 							</div>
-							{{--
-							<div class="tab-pane" id="spontaneous">
+							@if(config('app.wlar_additional_reading_enabled'))
+							<div class="tab-pane" id="additional">
 								<p class="card-text">
-									@include('includes.'.$locale.".spontaneous_prompts")
+									@include('includes.'.$locale.".additional_reading_passage")
 								</p>
-							</div> --}}
+							</div>
+							@endif
 						</div>
 					</div>
                 </div>

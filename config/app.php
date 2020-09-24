@@ -233,6 +233,9 @@ return [
 
     ],
 
-    'wlar_languages' => [[ "name" => "English", "id" => "en" ]]
+    'wlar_languages' => [[ "name" => "English", "id" => "en" ]],
+    'wlar_email_required' => false,
+    'wlar_request_consent_publication' => false,
+    'wlar_additional_reading_enabled' => false,
 
 ];

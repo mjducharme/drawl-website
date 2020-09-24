@@ -10,6 +10,7 @@ WLAR is developed using the Laravel framework on PHP.
 
 - Dimitri Prica
 - Marton Soskuthy
+- Roger Lo
 - Michael Ducharme
 
 ### Installation
@@ -17,7 +18,7 @@ WLAR is developed using the Laravel framework on PHP.
 Needs more detail, but:
 
 1. Fetch the repository and run "composer install" in the root to install dependencies.
-2. Edit config/app.php and set wlar_languages list.
+2. Edit config/app.php and set wlar_languages list. Also set wlar_email_required, wlar_request_consent_publication, and wlar_additional_reading_enabled as necessary for your project.
 3. Create empty file database/database.sqlite
 4. Then run "php artisan migrate" to create the SQLite tables for administration interface.
 5. Copy .env.example to .env and customize as necessary.

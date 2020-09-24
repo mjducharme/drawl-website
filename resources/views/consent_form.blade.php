@@ -15,7 +15,7 @@
     @csrf
     <div class="container w-75 px-2">
         <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="{{ config('app.wlar_request_consent_publication') ? 'col-md-6 col-sm-12' : 'col' }}">
                 <h4>@lang('messages.ConsentParticipation')</h4>
                 <p>@include('includes.'.$locale.".consent_participation_text")</p>
 
@@ -30,7 +30,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">@lang('messages.ConsentEmail')</span>
                     </div>
-                    <input type="email" id="email" name="user_email" class="form-control" required>
+                    <input type="email" id="email" name="user_email" class="form-control" {{ config('app.wlar_email_required') ? 'required' : 'placeholder=('.Lang::get('messages.Optional').')' }}>
                 </div>
                 <div class="form-check w-75 mx-auto">
                     <input class="form-check-input" id="check_1" type="checkbox" name="consent_box"
@@ -39,6 +39,7 @@
                     <br/><br/>
                 </div>
             </div>
+            @if(config('app.wlar_request_consent_publication'))
             <div class="col-md-6 col-sm-12">
                 <h4>@lang('messages.ConsentPublication')</h4>
                 <p>@include('includes.'.$locale.".consent_publication_text")</p>
@@ -47,6 +48,7 @@
                     <label class="form-check-label" for="check_2">@lang('messages.ConsentPublicationConsent')</label>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     <div class="text-center">
