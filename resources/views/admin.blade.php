@@ -31,12 +31,32 @@
                 <div class="card-header">Users Awaiting Authorization</div>
 
                 <div class="card-body">
-                    @if (empty($users))
+                    @if (!$users->isEmpty())
                     The following unauthorized users require authorization, or deletion if they should not have access:
                     <table width="100%">
-                        <tr><th>ID</th><th>Name</th><th>Email</th></tr>
+                        <tr><th>ID</th><th>Name</th><th>Email</th><th colspan=2>Status / Actions</th></tr>
                         @foreach ($users as $user)
-                            <tr><td>{{ $user->id }}</td><td>{{ $user->name }}</td><td>{{ $user->email }}</td></tr>
+                            <tr><td>{{ $user->id }}</td><td>{{ $user->name }}</td><td>{{ $user->email }}</td>
+                                <td>
+                                    @if ($user->authorized)
+                                        Authorized 
+                                        @if (Auth::user() != $user)
+                                            (<a href="{{ route ('admin_users.deauthorize', $user->id) }}">Deauthorize</a>)
+                                        @endif
+                                    @else
+                                        Not Authorized
+                                        @if (Auth::user() != $user)
+                                            (<a href="{{ route ('admin_users.authorize', $user->id) }}">Authorize</a>)
+                                        @endif
+                                    @endif
+                                    </td>
+        
+                                        @if (Auth::user() != $user)
+                                        <td>
+                                            <a href="{{ route ('admin_users.destroy', $user->id) }}" onclick="return confirm('Are you sure you wish to delete this user? This cannot be undone!')">Delete User</a>
+                                        </td>
+                                        @endif
+                            </tr>
                         @endforeach
                     </table>
                     @else
