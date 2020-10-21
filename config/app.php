@@ -161,7 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
@@ -177,7 +176,6 @@ return [
 
         Nebed\UserAgent\UserAgentServiceProvider::class,
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class
-
     ],
 
     /*
@@ -233,7 +231,9 @@ return [
 
     ],
 
-    'wlar_languages' => [[ "name" => "English", "id" => "en" ]],
+    'wlar_languages' => [
+            [ "name" => "English", "id" => "en" ]
+        ],
     'wlar_email_required' => false,
     'wlar_request_consent_publication' => false,
     'wlar_additional_reading_enabled' => false,
