@@ -51,7 +51,7 @@
                     @endif
 
                     <br/>
-                    <a href="{{ route('admin') }}">Go back to the Admin Dashboard</a>
+                    <a href="{{ route('admin') }}">Go Back to the Admin Dashboard</a>
                 </div>
             </div>
         </div>
