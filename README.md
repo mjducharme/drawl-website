@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mjducharme/drawl-website.svg?branch=master)](https://travis-ci.org/mjducharme/drawl-website)
+[![Build Status](https://travis-ci.com/mjducharme/drawl-website.svg?branch=master)](https://travis-ci.com/mjducharme/drawl-website)
 
 ## About WLAR - Web Linguistics Audio Recorder
 
