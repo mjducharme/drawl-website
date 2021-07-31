@@ -709,22 +709,22 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.2.0",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79"
+                "reference": "7008573787b430c1c1f650e3722d9bba59967628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0aa74dfb41ae110835923ef10a9d803a22d50e79",
-                "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7008573787b430c1c1f650e3722d9bba59967628",
+                "reference": "7008573787b430c1c1f650e3722d9bba59967628",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/promises": "^1.4",
-                "guzzlehttp/psr7": "^1.7",
+                "guzzlehttp/psr7": "^1.7 || ^2.0",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0"
             },
@@ -732,6 +732,7 @@
                 "psr/http-client-implementation": "1.0"
             },
             "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
                 "ext-curl": "*",
                 "php-http/client-integration-tests": "^3.0",
                 "phpunit/phpunit": "^8.5.5 || ^9.3.5",
@@ -745,7 +746,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "7.1-dev"
+                    "dev-master": "7.3-dev"
                 }
             },
             "autoload": {
@@ -803,20 +804,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-10T11:47:56+00:00"
+            "time": "2021-03-23T11:33:13+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "60d379c243457e073cff02bc323a2a86cb355631"
+                "reference": "8e7d04f1f6450fef59366c399cfad4b9383aa30d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/60d379c243457e073cff02bc323a2a86cb355631",
-                "reference": "60d379c243457e073cff02bc323a2a86cb355631",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/8e7d04f1f6450fef59366c399cfad4b9383aa30d",
+                "reference": "8e7d04f1f6450fef59366c399cfad4b9383aa30d",
                 "shasum": ""
             },
             "require": {
@@ -854,33 +855,36 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2020-09-30T07:37:28+00:00"
+            "time": "2021-03-07T09:25:29+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.7.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3"
+                "reference": "1dc8d9cba3897165e16d12bb13d813afb1eb3fe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/53330f47520498c0ae1f61f7e2c90f55690c06a3",
-                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/1dc8d9cba3897165e16d12bb13d813afb1eb3fe7",
+                "reference": "1dc8d9cba3897165e16d12bb13d813afb1eb3fe7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
-                "psr/http-message": "~1.0",
-                "ralouphie/getallheaders": "^2.0.5 || ^3.0.0"
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.0",
+                "ralouphie/getallheaders": "^3.0"
             },
             "provide": {
+                "psr/http-factory-implementation": "1.0",
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "ext-zlib": "*",
-                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.10"
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "http-interop/http-factory-tests": "^0.9",
+                "phpunit/phpunit": "^8.5.8 || ^9.3.10"
             },
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
@@ -888,16 +892,13 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.7-dev"
+                    "dev-master": "2.0-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "GuzzleHttp\\Psr7\\": "src/"
-                },
-                "files": [
-                    "src/functions_include.php"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -912,6 +913,11 @@
                 {
                     "name": "Tobias Schultze",
                     "homepage": "https://github.com/Tobion"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://sagikazarmark.hu"
                 }
             ],
             "description": "PSR-7 message implementation that also provides common utility methods",
@@ -925,7 +931,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2020-09-30T07:37:11+00:00"
+            "time": "2021-06-30T20:03:07+00:00"
         },
         {
             "name": "laravel/framework",
@@ -6171,35 +6177,35 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v5.0.2",
+            "version": "v5.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "4a343299054e9368d0db4a982a780cc4ffa12707"
+                "reference": "0122ac6b03c75279ef78d1c0ad49725dfc52a8d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/4a343299054e9368d0db4a982a780cc4ffa12707",
-                "reference": "4a343299054e9368d0db4a982a780cc4ffa12707",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0122ac6b03c75279ef78d1c0ad49725dfc52a8d2",
+                "reference": "0122ac6b03c75279ef78d1c0ad49725dfc52a8d2",
                 "shasum": ""
             },
             "require": {
                 "facade/ignition-contracts": "^1.0",
                 "filp/whoops": "^2.7.2",
-                "php": "^7.3",
+                "php": "^7.3 || ^8.0",
                 "symfony/console": "^5.0"
             },
             "require-dev": {
-                "fideloper/proxy": "^4.4.0",
-                "friendsofphp/php-cs-fixer": "^2.16.4",
-                "fruitcake/laravel-cors": "^2.0.1",
-                "laravel/framework": "^8.0",
-                "laravel/tinker": "^2.4.1",
+                "brianium/paratest": "^6.1",
+                "fideloper/proxy": "^4.4.1",
+                "friendsofphp/php-cs-fixer": "^2.17.3",
+                "fruitcake/laravel-cors": "^2.0.3",
+                "laravel/framework": "^8.0 || ^9.0",
                 "nunomaduro/larastan": "^0.6.2",
                 "nunomaduro/mock-final-classes": "^1.0",
-                "orchestra/testbench": "^6.0",
-                "phpstan/phpstan": "^0.12.36",
-                "phpunit/phpunit": "^9.3.3"
+                "orchestra/testbench": "^6.0 || ^7.0",
+                "phpstan/phpstan": "^0.12.64",
+                "phpunit/phpunit": "^9.5.0"
             },
             "type": "library",
             "extra": {
@@ -6251,7 +6257,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2020-08-27T18:58:22+00:00"
+            "time": "2021-07-26T20:39:06+00:00"
         },
         {
             "name": "phar-io/manifest",
