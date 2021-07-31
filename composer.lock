@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5ca197a173225d6a0f6484dad46ba43",
+    "content-hash": "3cc82043da3206fd94b2e01942854662",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1793,16 +1793,16 @@
         },
         {
             "name": "mjducharme/laravel-model-json-storage",
-            "version": "dev-master",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mjducharme/laravel-model-json-storage.git",
-                "reference": "4155762b00cfa3fcdd8ddbe220e91b6307344457"
+                "reference": "7613f741ea5db0e779034acbbb319e8334fd9d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mjducharme/laravel-model-json-storage/zipball/4155762b00cfa3fcdd8ddbe220e91b6307344457",
-                "reference": "4155762b00cfa3fcdd8ddbe220e91b6307344457",
+                "url": "https://api.github.com/repos/mjducharme/laravel-model-json-storage/zipball/7613f741ea5db0e779034acbbb319e8334fd9d71",
+                "reference": "7613f741ea5db0e779034acbbb319e8334fd9d71",
                 "shasum": ""
             },
             "require": {
@@ -1847,7 +1847,7 @@
                 "php",
                 "storage"
             ],
-            "time": "2020-08-31T10:12:09+00:00"
+            "time": "2021-07-30T22:51:41+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -7726,9 +7726,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "mjducharme/laravel-model-json-storage": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
